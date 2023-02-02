@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">group13project</string>
+    <string name="employee_dashboard_title">Employee Dashboard</string>
+    <string name="employer_dashboard_title">Employer Dashboard</string>
+    <string name="recent_jobs">Recent Jobs</string>
 </resources>

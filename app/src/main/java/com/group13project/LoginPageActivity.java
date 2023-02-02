@@ -1,12 +1,14 @@
 package com.group13project;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public class LoginPageActivity extends AppCompatActivity {
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+public class LoginPageActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
     }

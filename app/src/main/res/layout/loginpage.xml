@@ -21,11 +21,11 @@
     </Button>
 
     <EditText
-        android:id="@+id/usernameField"
+        android:id="@+id/emailField"
         android:layout_width="183dp"
         android:layout_height="55dp"
         android:layout_marginBottom="68dp"
-        android:hint="Username"
+        android:hint="Email address"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

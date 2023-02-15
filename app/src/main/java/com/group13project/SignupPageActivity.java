@@ -22,7 +22,7 @@ public class SignupPageActivity extends Activity {
     }
 
     protected String getFirstName() {
-        EditText firstName = findViewById(R.id.firstName);
+        EditText firstName = findViewById(R.id.lastName2);
         return firstName.getText().toString().trim();
     }
 

@@ -1,6 +1,6 @@
 package com.group13project;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class EmployerHomeActivity extends AppCompatActivity {

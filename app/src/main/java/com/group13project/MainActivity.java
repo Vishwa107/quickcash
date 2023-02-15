@@ -1,7 +1,7 @@
 package com.group13project;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,10 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("message");
 
-        //myRef.setValue("Hello, World!");
 
         signUpButton = (Button)findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {

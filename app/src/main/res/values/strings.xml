@@ -3,4 +3,8 @@
     <string name="employee_dashboard_title">Employee Dashboard</string>
     <string name="employer_dashboard_title">Employer Dashboard</string>
     <string name="recent_jobs">Recent Jobs</string>
+    <string name="find_quick_cash">Find Quick Cash</string>
+    <string name="submit_button_text">Submit Button</string>
+    <string name="email_hint">email hint</string>
+    <string name="password_hint">password hint</string>
 </resources>

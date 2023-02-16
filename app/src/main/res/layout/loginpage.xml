@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Submit"
+        android:text="LOG IN"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/passwordField"

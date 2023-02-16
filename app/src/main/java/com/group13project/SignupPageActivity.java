@@ -1,6 +1,7 @@
 package com.group13project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -57,59 +58,10 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         String passConfirm = passwordConfirm.getText().toString().trim();
 
         // validating fields
-        if(fName.isEmpty()){
-            firstName.setError("Fill in your first name");
-            firstName.requestFocus();
-            return;
-        }
-        if(lName.isEmpty()){
-            lastName.setError("Fill in your last name");
-            lastName.requestFocus();
+        if(!validateInput(fName, lName, email, phone, pass, passConfirm)){
             return;
         }
 
-        if(email.isEmpty()){
-            emailAddress.setError("Fill in your email address");
-            emailAddress.requestFocus();
-            return;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
-            emailAddress.setError("Enter a valid email");
-            emailAddress.requestFocus();
-            return;
-        }
-
-        if(phone.isEmpty()){
-            phoneNumber.setError("Fill in your phone number");
-            phoneNumber.requestFocus();
-            return;
-        }
-        if(!Patterns.PHONE.matcher(phone).matches()){
-            phoneNumber.setError("Enter a valid phone number");
-            phoneNumber.requestFocus();
-            return;
-        }
-
-        if(pass.isEmpty()){
-            password.setError("Fill in your password");
-            password.requestFocus();
-            return;
-        }
-        if(pass.length() < 6){
-            password.setError("Password must contain at least 6 characters");
-            password.requestFocus();
-            return;
-        }
-        if(passConfirm.isEmpty()){
-            passwordConfirm.setError("Fill confirm your password");
-            passwordConfirm.requestFocus();
-            return;
-        }
-        if(!pass.equals(passConfirm)){
-            passwordConfirm.setError("Enter the same password");
-            passwordConfirm.requestFocus();
-            return;
-        }
 
         // calling Firebase authentication to create and register the user
         mAuth.createUserWithEmailAndPassword(email, pass)
@@ -126,6 +78,8 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 Toast.makeText(SignupPageActivity.this, "Signed up successfully!", Toast.LENGTH_LONG).show();
+                                                Intent action = new Intent(SignupPageActivity.this, LoginPageActivity.class);
+                                                startActivity(action);
                                             }else{
                                                 Toast.makeText(SignupPageActivity.this, "Sign up failed, try again.", Toast.LENGTH_LONG).show();
                                             }
@@ -136,5 +90,63 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
                         }
                     }
                 });
+    }
+
+    private boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
+        // validating fields
+        if(fName.isEmpty()){
+            firstName.setError("Fill in your first name");
+            firstName.requestFocus();
+            return false;
+        }
+        if(lName.isEmpty()){
+            lastName.setError("Fill in your last name");
+            lastName.requestFocus();
+            return false;
+        }
+
+        if(email.isEmpty()){
+            emailAddress.setError("Fill in your email address");
+            emailAddress.requestFocus();
+            return false;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+            emailAddress.setError("Enter a valid email");
+            emailAddress.requestFocus();
+            return false;
+        }
+
+        if(phone.isEmpty()){
+            phoneNumber.setError("Fill in your phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }
+        if(!Patterns.PHONE.matcher(phone).matches()){
+            phoneNumber.setError("Enter a valid phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }
+
+        if(pass.isEmpty()){
+            password.setError("Fill in your password");
+            password.requestFocus();
+             return false;
+        }
+        if(pass.length() < 6){
+            password.setError("Password must contain at least 6 characters");
+            password.requestFocus();
+             return false;
+        }
+        if(passConfirm.isEmpty()){
+            passwordConfirm.setError("Fill confirm your password");
+            passwordConfirm.requestFocus();
+            return false;
+        }
+        if(!pass.equals(passConfirm)){
+            passwordConfirm.setError("Enter the same password");
+            passwordConfirm.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package com.group13project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -126,6 +127,8 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 Toast.makeText(SignupPageActivity.this, "Signed up successfully!", Toast.LENGTH_LONG).show();
+                                                Intent action = new Intent(SignupPageActivity.this, LoginPageActivity.class);
+                                                startActivity(action);
                                             }else{
                                                 Toast.makeText(SignupPageActivity.this, "Sign up failed, try again.", Toast.LENGTH_LONG).show();
                                             }

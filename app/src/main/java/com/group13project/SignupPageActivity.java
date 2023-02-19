@@ -44,7 +44,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         password = findViewById(R.id.password1);
         passwordConfirm = findViewById(R.id.password2);
 
-        // initializing buttons
+        // initializing signup button
         signupButton = findViewById(R.id.signUpButton);
         signupButton.setOnClickListener(this);
     }

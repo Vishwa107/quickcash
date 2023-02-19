@@ -20,58 +20,52 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPageActivity extends Activity implements View.OnClickListener {
 
+    // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
+    // declaring input fields
     private EditText emailAddress, password;
-    private Button logInbutton;
+
+    // declaring login button
+    private Button logInButton;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
 
+        // initializing Firebase authentication
         mAuth = FirebaseAuth.getInstance();
 
+        // initializing data fields
         emailAddress = findViewById(R.id.emailField);
         password = findViewById(R.id.passwordField);
 
-        logInbutton = findViewById(R.id.checkValidButton);
-        logInbutton.setOnClickListener(this);
+        // initializing login button
+        logInButton = findViewById(R.id.checkValidButton);
+        logInButton.setOnClickListener(this);
     }
 
+    /**
+     * This method handles the log in process for the user. It also alerts the user if any data fields are invalid or if the login did not succeed.
+     * @param v The view that was clicked.
+     */
     @Override
     public void onClick(View v) {
         logInUser();
     }
 
     private void logInUser(){
+        // retrieving fields
         String emailId = emailAddress.getText().toString().trim();
         String pass = password.getText().toString().trim();
 
-        if(emailId.isEmpty()){
-            emailAddress.setError("Email is required!");
-            emailAddress.requestFocus();
+        // validating fields
+        if(!validateInputLogin(emailId, pass)){
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailId).matches() ){
-            emailAddress.setError("Enter a valid email");
-            emailAddress.requestFocus();
-            return;
-        }
-
-        if(pass.isEmpty()){
-            password.setError("Password is required!");
-            password.requestFocus();
-            return;
-        }
-
-        if(pass.length() < 6){
-            password.setError("Password must contain at least 6 characters");
-            password.requestFocus();
-            return;
-        }
-
+        // calling Firebase authentication to log the user in
         mAuth.signInWithEmailAndPassword(emailId,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -80,10 +74,60 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
                     startActivity(new Intent(LoginPageActivity.this,EmployeeHomeActivity.class));
 
                 }else{
-                    Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your crendentials.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your credentials.",Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    /**
+     * This method validates input fields and sets an error message for the invalid fields.
+     * @param emailId User's  email address
+     * @param pass password
+     * @return true if all fields are valid, false if any field is invalid
+     */
+    protected boolean validateInputLogin(String emailId, String pass) {
+        // validating fields
+        if(validateEmailAddress(emailId).equals("empty")){
+            emailAddress.setError("Fill in your email address");
+            emailAddress.requestFocus();
+            return false;
+        }else if(validateEmailAddress(emailId).equals("invalid")){
+            emailAddress.setError("Enter a valid email");
+            emailAddress.requestFocus();
+            return false;
+        }
+        if(validatePassword(pass).equals("empty")){
+            password.setError("Fill in your password");
+            password.requestFocus();
+            return false;
+        }else if(validatePassword(pass).equals("short")){
+            password.setError("Password must contain at least 6 characters");
+            password.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    protected String validateEmailAddress(String email){
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if(email.isEmpty()){
+            return "empty";
+        }else if(!email.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
+        }
+    }
+
+    protected String validatePassword(String pass){
+        if(pass.isEmpty()){
+            return "empty";
+        }else if(pass.length() < 6){
+            return "short";
+        }else{
+            return "valid";
+        }
     }
     
 }

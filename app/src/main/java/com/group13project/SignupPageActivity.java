@@ -17,13 +17,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.regex.Pattern;
-
 public class SignupPageActivity extends Activity implements View.OnClickListener {
 
+    // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
+    // declaring input fields
     private EditText firstName, lastName, emailAddress, phoneNumber, password, passwordConfirm;
+
+    // declaring signup button
     private Button signupButton;
 
     @Override
@@ -31,8 +33,10 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
 
+        // initializing Firebase authentication
         mAuth = FirebaseAuth.getInstance();
 
+        // initializing data fields
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         emailAddress = findViewById(R.id.emailAddress);
@@ -40,6 +44,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         password = findViewById(R.id.password1);
         passwordConfirm = findViewById(R.id.password2);
 
+        // initializing signup button
         signupButton = findViewById(R.id.signUpButton);
         signupButton.setOnClickListener(this);
     }
@@ -49,7 +54,12 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         signupUser();
     }
 
+    /**
+     * This method handles registering the user to the database using Firebase authentication.
+     * It also alerts the user if any data fields are invalid or if the signup did not succeed.
+     */
     private void signupUser() {
+        // retrieving fields
         String fName = firstName.getText().toString().trim();
         String lName = lastName.getText().toString().trim();
         String email = emailAddress.getText().toString().trim();
@@ -58,57 +68,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         String passConfirm = passwordConfirm.getText().toString().trim();
 
         // validating fields
-        if(fName.isEmpty()){
-            firstName.setError("Fill in your first name");
-            firstName.requestFocus();
-            return;
-        }
-        if(lName.isEmpty()){
-            lastName.setError("Fill in your last name");
-            lastName.requestFocus();
-            return;
-        }
-
-        if(email.isEmpty()){
-            emailAddress.setError("Fill in your email address");
-            emailAddress.requestFocus();
-            return;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
-            emailAddress.setError("Enter a valid email");
-            emailAddress.requestFocus();
-            return;
-        }
-
-        if(phone.isEmpty()){
-            phoneNumber.setError("Fill in your phone number");
-            phoneNumber.requestFocus();
-            return;
-        }
-        if(!Patterns.PHONE.matcher(phone).matches()){
-            phoneNumber.setError("Enter a valid phone number");
-            phoneNumber.requestFocus();
-            return;
-        }
-
-        if(pass.isEmpty()){
-            password.setError("Fill in your password");
-            password.requestFocus();
-            return;
-        }
-        if(pass.length() < 6){
-            password.setError("Password must contain at least 6 characters");
-            password.requestFocus();
-            return;
-        }
-        if(passConfirm.isEmpty()){
-            passwordConfirm.setError("Fill confirm your password");
-            passwordConfirm.requestFocus();
-            return;
-        }
-        if(!pass.equals(passConfirm)){
-            passwordConfirm.setError("Enter the same password");
-            passwordConfirm.requestFocus();
+        if(!validateInput(fName, lName, email, phone, pass, passConfirm)){
             return;
         }
 
@@ -139,5 +99,116 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
                         }
                     }
                 });
+    }
+
+    /**
+     * This method validates input fields and sets an error message for the invalid fields.
+     * @param fName User's first name
+     * @param lName User's  last name
+     * @param email User's  email address
+     * @param phone User's  phone number
+     * @param pass password
+     * @param passConfirm password confirmation
+     * @return true if all fields are valid, false if any field is invalid
+     */
+    protected boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
+        // validating fields
+        if(validateFirstName(fName)){
+            firstName.setError("Fill in your first name");
+            firstName.requestFocus();
+            return false;
+        }
+        if(validateLastName(lName)){
+            lastName.setError("Fill in your last name");
+            lastName.requestFocus();
+            return false;
+        }
+        if(validateEmailAddress(email).equals("empty")){
+            emailAddress.setError("Fill in your email address");
+            emailAddress.requestFocus();
+            return false;
+        }else if(validateEmailAddress(email).equals("invalid")){
+            emailAddress.setError("Enter a valid email");
+            emailAddress.requestFocus();
+            return false;
+        }
+        if(validatePhoneNumber(phone).equals("empty")){
+            phoneNumber.setError("Fill in your phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }else if(validatePhoneNumber(phone).equals("invalid")){
+            phoneNumber.setError("Enter a valid phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }
+        if(validatePassword(pass).equals("empty")){
+            password.setError("Fill in your password");
+            password.requestFocus();
+            return false;
+        }else if(validatePassword(pass).equals("short")){
+            password.setError("Password must contain at least 6 characters");
+            password.requestFocus();
+            return false;
+        }
+        if(validateConfirmPassword(pass, passConfirm).equals("empty")){
+            passwordConfirm.setError("Fill confirm your password");
+            passwordConfirm.requestFocus();
+            return false;
+        }else if(validateConfirmPassword(pass, passConfirm).equals("incorrect")){
+            passwordConfirm.setError("Enter the same password");
+            passwordConfirm.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean validateFirstName(String fName){
+        return fName.isEmpty();
+    }
+
+    protected boolean validateLastName(String lName){
+        return lName.isEmpty();
+    }
+
+    protected String validateEmailAddress(String email){
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if(email.isEmpty()){
+            return "empty";
+        }else if(!email.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
+        }
+    }
+
+    protected String validatePhoneNumber(String phone){
+        String regex = "^(?:[0-9] ?){6,14}[0-9]$";
+        if(phone.isEmpty()){
+            return "empty";
+        }else if(!phone.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
+        }
+    }
+
+    protected String validatePassword(String pass){
+        if(pass.isEmpty()){
+            return "empty";
+        }else if(pass.length() < 6){
+            return "short";
+        }else{
+            return "valid";
+        }
+    }
+
+    protected String validateConfirmPassword(String pass, String passConfirm){
+        if(passConfirm.isEmpty()){
+            return "empty";
+        }else if(!pass.equals(passConfirm)){
+            return "incorrect";
+        }else{
+            return "valid";
+        }
     }
 }

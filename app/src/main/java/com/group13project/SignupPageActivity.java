@@ -162,14 +162,29 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         return true;
     }
 
+    /**
+     * This method checks if the First name is empty
+     * @param fName User's first name
+     * @return if fName is empty, returns true else false
+     */
     protected boolean validateFirstName(String fName){
         return fName.isEmpty();
     }
 
+    /**
+     * This method checks if the Last name is empty
+     * @param lName User's last name
+     * @return if lName is empty, returns true else false
+     */
     protected boolean validateLastName(String lName){
         return lName.isEmpty();
     }
 
+    /**
+     * This method is for checking the validity of email using regex
+     * @param email User's email address
+     * @return String describing the error
+     */
     protected String validateEmailAddress(String email){
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(email.isEmpty()){
@@ -181,6 +196,11 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }
     }
 
+    /**
+     * This method is for checking the validity of phone number using regex
+     * @param phone User's phone number
+     * @return String describing the error
+     */
     protected String validatePhoneNumber(String phone){
         String regex = "^(?:[0-9] ?){6,14}[0-9]$";
         if(phone.isEmpty()){
@@ -192,6 +212,11 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }
     }
 
+    /**
+     * This method is for checking the validity of password
+     * @param pass User's password
+     * @return String describing the error
+     */
     protected String validatePassword(String pass){
         if(pass.isEmpty()){
             return "empty";
@@ -202,6 +227,12 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }
     }
 
+    /**
+     * This method is for checking if the entered password and confirm password are same
+     * @param pass User's password
+     * @param passConfirm User's confirmed password
+     * @return String describing the error
+     */
     protected String validateConfirmPassword(String pass, String passConfirm){
         if(passConfirm.isEmpty()){
             return "empty";

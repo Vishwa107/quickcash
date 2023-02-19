@@ -109,6 +109,11 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
         return true;
     }
 
+    /**
+     * This method is for checking the validity of email using regex
+     * @param email User's email address
+     * @return String describing the error
+     */
     protected String validateEmailAddress(String email){
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(email.isEmpty()){
@@ -120,6 +125,11 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
         }
     }
 
+    /**
+     * This method is for checking the validity of password
+     * @param pass User's password
+     * @return String describing the error
+     */
     protected String validatePassword(String pass){
         if(pass.isEmpty()){
             return "empty";

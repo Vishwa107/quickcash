@@ -61,7 +61,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
         String pass = password.getText().toString().trim();
 
         // validating fields
-        if(!validateInput(emailId, pass)){
+        if(!validateInputLogin(emailId, pass)){
             return;
         }
 
@@ -86,31 +86,56 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
      * @param pass password
      * @return true if all fields are valid, false if any field is invalid
      */
-    private  boolean validateInput(String emailId, String pass){
-        if(emailId.isEmpty()){
-            emailAddress.setError("Email is required!");
-            emailAddress.requestFocus();
+    protected boolean validateInputLogin(String emailId, String pass) {
+        // validating fields
+        if (isEmailEmpty(emailId)) {
             return false;
         }
+        if (!isEmailValid(emailId)) {
+            return false;
+        }
+        if (isPasswordEmpty(pass)) {
+            return false;
+        }
+        if (!isPasswordValid(pass)) {
+            return false;
+        }
+        return true;
+    }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailId).matches() ){
+    private boolean isEmailEmpty(String emailId) {
+        if (emailId.isEmpty()) {
+            emailAddress.setError("Email is required!");
+            emailAddress.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isEmailValid(String emailId) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailId).matches()) {
             emailAddress.setError("Enter a valid email");
             emailAddress.requestFocus();
             return false;
         }
+        return true;
+    }
 
-        if(pass.isEmpty()){
+    private boolean isPasswordEmpty(String pass) {
+        if (pass.isEmpty()) {
             password.setError("Password is required!");
+            password.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isPasswordValid(String pass) {
+        if (pass.length() < 6) {
+            password.setError("Password must contain at least 6 characters");
             password.requestFocus();
             return false;
         }
-
-        if(pass.length() < 6){
-            password.setError("Password must contain at least 6 characters");
-            password.requestFocus();
-             return false;
-        }
-
         return true;
     }
     

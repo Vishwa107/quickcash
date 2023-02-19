@@ -111,61 +111,100 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
      * @param passConfirm password confirmation
      * @return true if all fields are valid, false if any field is invalid
      */
-    private boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
+    protected boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
         // validating fields
+        if(validateFirstName(fName)){
+            return false;
+        }
+        if(validateLastName(lName)){
+            return false;
+        }
+        if(validateEmailAddress(email)){
+            return false;
+        }
+        if(validatePhoneNumber(phone)){
+            return false;
+        }
+        if(validatePassword(pass)){
+            return false;
+        }
+        if(validateConfirmPassword(pass, passConfirm)){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateFirstName(String fName){
         if(fName.isEmpty()){
             firstName.setError("Fill in your first name");
             firstName.requestFocus();
-            return false;
+            return true;
         }
+        return false;
+    }
+
+    private boolean validateLastName(String lName){
         if(lName.isEmpty()){
             lastName.setError("Fill in your last name");
             lastName.requestFocus();
-            return false;
+            return true;
         }
+        return false;
+    }
 
+    private boolean validateEmailAddress(String email){
         if(email.isEmpty()){
             emailAddress.setError("Fill in your email address");
             emailAddress.requestFocus();
-            return false;
+            return true;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
             emailAddress.setError("Enter a valid email");
             emailAddress.requestFocus();
-            return false;
+            return true;
         }
+        return false;
+    }
 
+    private boolean validatePhoneNumber(String phone){
         if(phone.isEmpty()){
             phoneNumber.setError("Fill in your phone number");
             phoneNumber.requestFocus();
-            return false;
+            return true;
         }
         if(!Patterns.PHONE.matcher(phone).matches()){
             phoneNumber.setError("Enter a valid phone number");
             phoneNumber.requestFocus();
-            return false;
+            return true;
         }
+        return false;
+    }
 
+    private boolean validatePassword(String pass){
         if(pass.isEmpty()){
             password.setError("Fill in your password");
             password.requestFocus();
-             return false;
+            return true;
         }
         if(pass.length() < 6){
             password.setError("Password must contain at least 6 characters");
             password.requestFocus();
-             return false;
+            return true;
         }
+        return false;
+    }
+
+    private boolean validateConfirmPassword(String pass, String passConfirm){
         if(passConfirm.isEmpty()){
             passwordConfirm.setError("Fill confirm your password");
             passwordConfirm.requestFocus();
-            return false;
+            return true;
         }
         if(!pass.equals(passConfirm)){
             passwordConfirm.setError("Enter the same password");
             passwordConfirm.requestFocus();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

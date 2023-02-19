@@ -17,13 +17,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.regex.Pattern;
-
 public class SignupPageActivity extends Activity implements View.OnClickListener {
 
+    // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
+    // declaring input fields
     private EditText firstName, lastName, emailAddress, phoneNumber, password, passwordConfirm;
+
+    // declaring signup button
     private Button signupButton;
 
     @Override
@@ -31,8 +33,10 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
 
+        // initializing Firebase authentication
         mAuth = FirebaseAuth.getInstance();
 
+        // initializing data fields
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         emailAddress = findViewById(R.id.emailAddress);
@@ -40,6 +44,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         password = findViewById(R.id.password1);
         passwordConfirm = findViewById(R.id.password2);
 
+        // initializing buttons
         signupButton = findViewById(R.id.signUpButton);
         signupButton.setOnClickListener(this);
     }
@@ -49,7 +54,12 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         signupUser();
     }
 
+    /**
+     * This method handles registering the user to the database using Firebase authentication.
+     * It also alerts the user if any data fields are invalid or if the signup did not succeed.
+     */
     private void signupUser() {
+        // retrieving fields
         String fName = firstName.getText().toString().trim();
         String lName = lastName.getText().toString().trim();
         String email = emailAddress.getText().toString().trim();
@@ -61,7 +71,6 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         if(!validateInput(fName, lName, email, phone, pass, passConfirm)){
             return;
         }
-
 
         // calling Firebase authentication to create and register the user
         mAuth.createUserWithEmailAndPassword(email, pass)
@@ -92,6 +101,16 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
                 });
     }
 
+    /**
+     * This method validates input fields and sets an error message for the invalid fields.
+     * @param fName User's first name
+     * @param lName User's  last name
+     * @param email User's  email address
+     * @param phone User's  phone number
+     * @param pass password
+     * @param passConfirm password confirmation
+     * @return true if all fields are valid, false if any field is invalid
+     */
     private boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
         // validating fields
         if(fName.isEmpty()){

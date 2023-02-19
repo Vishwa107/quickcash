@@ -114,97 +114,101 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
     protected boolean validateInput(String fName, String lName, String email, String phone, String pass, String passConfirm){
         // validating fields
         if(validateFirstName(fName)){
+            firstName.setError("Fill in your first name");
+            firstName.requestFocus();
             return false;
         }
         if(validateLastName(lName)){
+            lastName.setError("Fill in your last name");
+            lastName.requestFocus();
             return false;
         }
-        if(validateEmailAddress(email)){
+        if(validateEmailAddress(email).equals("empty")){
+            emailAddress.setError("Fill in your email address");
+            emailAddress.requestFocus();
+            return false;
+        }else if(validateEmailAddress(email).equals("invalid")){
+            emailAddress.setError("Enter a valid email");
+            emailAddress.requestFocus();
             return false;
         }
-        if(validatePhoneNumber(phone)){
+        if(validatePhoneNumber(phone).equals("empty")){
+            phoneNumber.setError("Fill in your phone number");
+            phoneNumber.requestFocus();
+            return false;
+        }else if(validatePhoneNumber(phone).equals("invalid")){
+            phoneNumber.setError("Enter a valid phone number");
+            phoneNumber.requestFocus();
             return false;
         }
-        if(validatePassword(pass)){
+        if(validatePassword(pass).equals("empty")){
+            password.setError("Fill in your password");
+            password.requestFocus();
+            return false;
+        }else if(validatePassword(pass).equals("short")){
+            password.setError("Password must contain at least 6 characters");
+            password.requestFocus();
             return false;
         }
-        if(validateConfirmPassword(pass, passConfirm)){
+        if(validateConfirmPassword(pass, passConfirm).equals("empty")){
+            passwordConfirm.setError("Fill confirm your password");
+            passwordConfirm.requestFocus();
+            return false;
+        }else if(validateConfirmPassword(pass, passConfirm).equals("incorrect")){
+            passwordConfirm.setError("Enter the same password");
+            passwordConfirm.requestFocus();
             return false;
         }
         return true;
     }
 
-    private boolean validateFirstName(String fName){
-        if(fName.isEmpty()){
-            firstName.setError("Fill in your first name");
-            firstName.requestFocus();
-            return true;
-        }
-        return false;
+    protected boolean validateFirstName(String fName){
+        return fName.isEmpty();
     }
 
-    private boolean validateLastName(String lName){
-        if(lName.isEmpty()){
-            lastName.setError("Fill in your last name");
-            lastName.requestFocus();
-            return true;
-        }
-        return false;
+    protected boolean validateLastName(String lName){
+        return lName.isEmpty();
     }
 
-    private boolean validateEmailAddress(String email){
+    protected String validateEmailAddress(String email){
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(email.isEmpty()){
-            emailAddress.setError("Fill in your email address");
-            emailAddress.requestFocus();
-            return true;
+            return "empty";
+        }else if(!email.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
-            emailAddress.setError("Enter a valid email");
-            emailAddress.requestFocus();
-            return true;
-        }
-        return false;
     }
 
-    private boolean validatePhoneNumber(String phone){
+    protected String validatePhoneNumber(String phone){
+        String regex = "^(?:[0-9] ?){6,14}[0-9]$";
         if(phone.isEmpty()){
-            phoneNumber.setError("Fill in your phone number");
-            phoneNumber.requestFocus();
-            return true;
+            return "empty";
+        }else if(!phone.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
         }
-        if(!Patterns.PHONE.matcher(phone).matches()){
-            phoneNumber.setError("Enter a valid phone number");
-            phoneNumber.requestFocus();
-            return true;
-        }
-        return false;
     }
 
-    private boolean validatePassword(String pass){
+    protected String validatePassword(String pass){
         if(pass.isEmpty()){
-            password.setError("Fill in your password");
-            password.requestFocus();
-            return true;
+            return "empty";
+        }else if(pass.length() < 6){
+            return "short";
+        }else{
+            return "valid";
         }
-        if(pass.length() < 6){
-            password.setError("Password must contain at least 6 characters");
-            password.requestFocus();
-            return true;
-        }
-        return false;
     }
 
-    private boolean validateConfirmPassword(String pass, String passConfirm){
+    protected String validateConfirmPassword(String pass, String passConfirm){
         if(passConfirm.isEmpty()){
-            passwordConfirm.setError("Fill confirm your password");
-            passwordConfirm.requestFocus();
-            return true;
+            return "empty";
+        }else if(!pass.equals(passConfirm)){
+            return "incorrect";
+        }else{
+            return "valid";
         }
-        if(!pass.equals(passConfirm)){
-            passwordConfirm.setError("Enter the same password");
-            passwordConfirm.requestFocus();
-            return true;
-        }
-        return false;
     }
 }

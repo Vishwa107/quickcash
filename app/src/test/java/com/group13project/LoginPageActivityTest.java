@@ -20,42 +20,19 @@ public class LoginPageActivityTest {
     }
 
     @Test
-    public void testValidInput() {
-        String email = "test@example.com";
-        String password = "password123";
-        boolean result = loginPageActivity.validateInputLogin(email, password);
-        assertTrue(result);
+    public void testValidateEmailAddress() {
+        assertEquals("empty", loginPageActivity.validateEmailAddress(""));
+        assertEquals("invalid", loginPageActivity.validateEmailAddress("invalid email"));
+        assertEquals("invalid", loginPageActivity.validateEmailAddress("john.doe@"));
+        assertEquals("valid", loginPageActivity.validateEmailAddress("john.doe@example.com"));
+        assertEquals("valid", loginPageActivity.validateEmailAddress("jane.doe123@subdomain.example.co.uk"));
     }
 
     @Test
-    public void testInvalidEmail() {
-        String email = "invalid_email";
-        String password = "password123";
-        boolean result = loginPageActivity.validateInputLogin(email, password);
-        assertFalse(result);
-    }
-
-    @Test
-    public void testEmptyEmail() {
-        String email = "";
-        String password = "password123";
-        boolean result = loginPageActivity.validateInputLogin(email, password);
-        assertFalse(result);
-    }
-
-    @Test
-    public void testEmptyPassword() {
-        String email = "test@example.com";
-        String password = "";
-        boolean result = loginPageActivity.validateInputLogin(email, password);
-        assertFalse(result);
-    }
-
-    @Test
-    public void testShortPassword() {
-        String email = "test@example.com";
-        String password = "pass";
-        boolean result = loginPageActivity.validateInputLogin(email, password);
-        assertFalse(result);
+    public void testValidatePassword() {
+        assertEquals("empty", loginPageActivity.validatePassword(""));
+        assertEquals("short", loginPageActivity.validatePassword("pass"));
+        assertEquals("valid", loginPageActivity.validatePassword("password"));
+        assertEquals("valid", loginPageActivity.validatePassword("P@ssw0rd"));
     }
 }

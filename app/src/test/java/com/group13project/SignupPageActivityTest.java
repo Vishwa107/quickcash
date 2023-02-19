@@ -20,101 +20,46 @@ public class SignupPageActivityTest {
     }
 
     @Test
-    public void testValidateInputValid() {
-        String fName = "John";
-        String lName = "Doe";
-        String email = "johndoe@example.com";
-        String phone = "1234567890";
-        String pass = "password";
-        String passConfirm = "password";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertTrue(result);
+    public void testValidateFirstName() {
+        assertTrue(signupPageActivity.validateFirstName(""));
+        assertFalse(signupPageActivity.validateFirstName("John"));
     }
 
     @Test
-    public void testValidateInputInvalidFirstName() {
-        String fName = "";
-        String lName = "Doe";
-        String email = "johndoe@example.com";
-        String phone = "1234567890";
-        String pass = "password";
-        String passConfirm = "password";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
+    public void testValidateLastName() {
+        assertTrue(signupPageActivity.validateLastName(""));
+        assertFalse(signupPageActivity.validateLastName("Doe"));
     }
 
     @Test
-    public void testValidateInputInvalidLastName() {
-        String fName = "John";
-        String lName = "";
-        String email = "johndoe@example.com";
-        String phone = "1234567890";
-        String pass = "password";
-        String passConfirm = "password";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
+    public void testValidateEmailAddress() {
+        assertEquals("empty", signupPageActivity.validateEmailAddress(""));
+        assertEquals("invalid", signupPageActivity.validateEmailAddress("invalid email"));
+        assertEquals("invalid", signupPageActivity.validateEmailAddress("john.doe@"));
+        assertEquals("valid", signupPageActivity.validateEmailAddress("john.doe@example.com"));
+        assertEquals("valid", signupPageActivity.validateEmailAddress("jane.doe123@subdomain.example.co.uk"));
     }
 
     @Test
-    public void testValidateInputInvalidEmail() {
-        String fName = "John";
-        String lName = "Doe";
-        String email = "johndoe";
-        String phone = "1234567890";
-        String pass = "password";
-        String passConfirm = "password";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
+    public void testValidatePhoneNumber() {
+        assertEquals("empty", signupPageActivity.validatePhoneNumber(""));
+        assertEquals("invalid", signupPageActivity.validatePhoneNumber("invalid phone number"));
+        assertEquals("valid", signupPageActivity.validatePhoneNumber("1234567890"));
     }
 
     @Test
-    public void testValidateInputInvalidPhone() {
-        String fName = "John";
-        String lName = "Doe";
-        String email = "johndoe@example.com";
-        String phone = "1234";
-        String pass = "password";
-        String passConfirm = "password";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
+    public void testValidatePassword() {
+        assertEquals("empty", signupPageActivity.validatePassword(""));
+        assertEquals("short", signupPageActivity.validatePassword("pass"));
+        assertEquals("valid", signupPageActivity.validatePassword("password"));
+        assertEquals("valid", signupPageActivity.validatePassword("P@ssw0rd"));
     }
 
     @Test
-    public void testValidateInputInvalidPassword() {
-        String fName = "John";
-        String lName = "Doe";
-        String email = "johndoe@example.com";
-        String phone = "1234567890";
-        String pass = "pass";
-        String passConfirm = "pass";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
-    }
-
-    @Test
-    public void testValidateInputInvalidPasswordConfirm() {
-        String fName = "John";
-        String lName = "Doe";
-        String email = "johndoe@example.com";
-        String phone = "1234567890";
-        String pass = "password";
-        String passConfirm = "password1";
-
-        boolean result = signupPageActivity.validateInput(fName, lName, email, phone, pass, passConfirm);
-
-        assertFalse(result);
+    public void testValidateConfirmPassword() {
+        assertEquals("empty", signupPageActivity.validateConfirmPassword("password", ""));
+        assertEquals("incorrect", signupPageActivity.validateConfirmPassword("password", "password2"));
+        assertEquals("valid", signupPageActivity.validateConfirmPassword("password", "password"));
     }
 
 

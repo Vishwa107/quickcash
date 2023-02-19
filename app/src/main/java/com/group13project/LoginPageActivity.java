@@ -88,55 +88,46 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
      */
     protected boolean validateInputLogin(String emailId, String pass) {
         // validating fields
-        if (isEmailEmpty(emailId)) {
-            return false;
-        }
-        if (!isEmailValid(emailId)) {
-            return false;
-        }
-        if (isPasswordEmpty(pass)) {
-            return false;
-        }
-        if (!isPasswordValid(pass)) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean isEmailEmpty(String emailId) {
-        if (emailId.isEmpty()) {
-            emailAddress.setError("Email is required!");
+        if(validateEmailAddress(emailId).equals("empty")){
+            emailAddress.setError("Fill in your email address");
             emailAddress.requestFocus();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isEmailValid(String emailId) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(emailId).matches()) {
+            return false;
+        }else if(validateEmailAddress(emailId).equals("invalid")){
             emailAddress.setError("Enter a valid email");
             emailAddress.requestFocus();
             return false;
         }
-        return true;
-    }
-
-    private boolean isPasswordEmpty(String pass) {
-        if (pass.isEmpty()) {
-            password.setError("Password is required!");
+        if(validatePassword(pass).equals("empty")){
+            password.setError("Fill in your password");
             password.requestFocus();
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isPasswordValid(String pass) {
-        if (pass.length() < 6) {
+            return false;
+        }else if(validatePassword(pass).equals("short")){
             password.setError("Password must contain at least 6 characters");
             password.requestFocus();
             return false;
         }
         return true;
+    }
+
+    protected String validateEmailAddress(String email){
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if(email.isEmpty()){
+            return "empty";
+        }else if(!email.matches(regex)){
+            return "invalid";
+        }else{
+            return "valid";
+        }
+    }
+
+    protected String validatePassword(String pass){
+        if(pass.isEmpty()){
+            return "empty";
+        }else if(pass.length() < 6){
+            return "short";
+        }else{
+            return "valid";
+        }
     }
     
 }

@@ -35,6 +35,8 @@
         <activity android:name=".SignupPageActivity" />
 
         <activity android:name=".LoginPageActivity" />
+        <activity android:name=".EmployerNewPostActivity" />
+
 
     </application>
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "644926088771",
+    "project_id": "group13project-cbed3",
+    "storage_bucket": "group13project-cbed3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644926088771:android:c986bb38c007f7481e16f6",
+        "android_client_info": {
+          "package_name": "com.group13project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644926088771-k8us0mat1hjeov367e1qpd0m33k9349t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFrg66dF6MiVDH_TbfJGaszqlLodABIng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644926088771-k8us0mat1hjeov367e1qpd0m33k9349t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

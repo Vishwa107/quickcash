@@ -58,6 +58,8 @@
         <activity android:name=".SignupPageActivity" />
         <activity android:name=".LoginPageActivity" />
         <activity android:name=".EmployerNewPostActivity" />
+        <activity android:name=".EmployerProfile" />
+        <activity android:name=".EmployerPostedJobs" />
 
 
     </application>

@@ -16,6 +16,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        
         <entry key="298776915">
           <value>
             <AndroidTestResultsTableState>
@@ -29,6 +30,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+       
         <entry key="745508118">
           <value>
             <AndroidTestResultsTableState>
@@ -42,6 +44,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+
         <entry key="1550981308">
           <value>
             <AndroidTestResultsTableState>
@@ -49,6 +52,7 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_2_API_30" value="120" />
+
                   <entry key="Tests" value="360" />
                 </map>
               </option>

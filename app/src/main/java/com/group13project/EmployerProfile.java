@@ -32,5 +32,17 @@ public class EmployerProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer_profile);
 
+        // Initialize the newJob button
+        newJob = findViewById(R.id.newJob);
+
+        // Set up an OnClickListener for the newJob button
+        newJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start EmployerNewPostActivity
+                Intent intent = new Intent(EmployerProfile.this, EmployerNewPostActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

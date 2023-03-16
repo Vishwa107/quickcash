@@ -7,9 +7,6 @@
     <string name="submit_button_text">Submit Button</string>
     <string name="email_hint">email hint</string>
     <string name="password_hint">password hint</string>
-<<<<<<< HEAD
-=======
     <string name="title_activity_maps">MapsActivity</string>
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4
     <string name="create_new_job_posting">Create New Job Posting</string>
 </resources>

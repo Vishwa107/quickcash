@@ -16,10 +16,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
-<<<<<<< HEAD
-=======
         
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4
         <entry key="298776915">
           <value>
             <AndroidTestResultsTableState>
@@ -33,10 +30,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
-<<<<<<< HEAD
-=======
        
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4
         <entry key="745508118">
           <value>
             <AndroidTestResultsTableState>
@@ -50,10 +44,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
-<<<<<<< HEAD
-=======
 
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4
         <entry key="1550981308">
           <value>
             <AndroidTestResultsTableState>
@@ -61,10 +52,7 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_2_API_30" value="120" />
-<<<<<<< HEAD
-=======
 
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -74,8 +62,4 @@
       </map>
     </option>
   </component>
-<<<<<<< HEAD
 </project>
-=======
-</project>
->>>>>>> ec7b8058864bf0a9ecf3e42f3642d3d21ce2d4c4

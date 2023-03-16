@@ -60,7 +60,7 @@
         <activity android:name=".EmployerNewPostActivity" />
         <activity android:name=".EmployerProfile" />
         <activity android:name=".EmployerPostedJobs" />
-
+        <activity android:name=".ChooseViewActivity" />
 
     </application>
 

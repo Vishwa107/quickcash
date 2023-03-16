@@ -39,12 +39,12 @@ public class jobSearchPageEspressoTest {
     }
 
     @Test
-    public void checkIfSwitchToEmployeePage() throws InterruptedException {
-        try {
+    public void checkIfSwitchToEmployeePage(){
+        /*try {
             Thread.sleep(50000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         onView(withId(R.id.employeePage)).perform(click());
 

@@ -1,6 +1,12 @@
 package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class EmployeeHomeActivity extends AppCompatActivity {
+package com.group13project;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;

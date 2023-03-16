@@ -71,7 +71,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     //redirect to user profile or home page for employee or employer
-                    startActivity(new Intent(LoginPageActivity.this,EmployerProfile.class));
+                    startActivity(new Intent(LoginPageActivity.this,ChooseViewActivity.class));
 
                 }else{
                     Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your credentials.",Toast.LENGTH_LONG).show();

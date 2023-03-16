@@ -39,8 +39,16 @@ public class jobSearchPageEspressoTest {
     }
 
     @Test
-    public void checkIfSwitchToEmployeePage(){
+    public void checkIfSwitchToEmployeePage() throws InterruptedException {
+        try {
+            Thread.sleep(50000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         onView(withId(R.id.employeePage)).perform(click());
+
+
         intended(hasComponent(EmployeeHomeActivity.class.getName()));
     }
 

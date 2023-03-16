@@ -50,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/employeePage" />
 
     <ListView
+        android:id="@+id/jobList"
         android:layout_width="379dp"
         android:layout_height="625dp"
         app:layout_constraintBottom_toBottomOf="parent"

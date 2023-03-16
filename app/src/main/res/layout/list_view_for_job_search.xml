@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
              android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/jobTitleTextView"
+        android:layout_width="259dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="92dp"
+        android:text="jobTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jobLocationTextView"
+        android:layout_width="259dp"
+        android:layout_height="38dp"
+        android:text="jobLocation"
+        app:layout_constraintEnd_toEndOf="@+id/jobTitleTextView"
+        app:layout_constraintStart_toStartOf="@+id/jobTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/jobTitleTextView" />
+
+    <TextView
+        android:id="@+id/jobSalaryTextView"
+        android:layout_width="259dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="38dp"
+        android:text="jobSalary"
+        app:layout_constraintEnd_toEndOf="@+id/jobLocationTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/jobLocationTextView"
+        app:layout_constraintTop_toTopOf="@+id/jobLocationTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

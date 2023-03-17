@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.not;
@@ -38,6 +37,7 @@ public class EmployerNewPostActivityTest {
         String place = "San Francisco";
         String urgency = "Urgent";
         String salary = "$100,000";
+        String employerId = "E12345";
 
         // Enter job posting details in the UI components
         Espresso.onView(ViewMatchers.withId(R.id.jobTitleEditText)).perform(ViewActions.typeText(jobTitle));
@@ -55,7 +55,7 @@ public class EmployerNewPostActivityTest {
                 .check(matches(withText("Job posting created successfully")));
 
         // Verify that a JobPosting object was created with the correct properties
-        JobPosting jobPosting = new JobPosting(jobTitle, jobDescription, expectedDuration, place, urgency, salary);
+        JobPosting jobPosting = new JobPosting(jobTitle, jobDescription, expectedDuration, place, urgency, salary, employerId);
         // TODO: Retrieve the job posting from the database or server and compare with jobPosting using assertTrue
 
         // Clear the UI components

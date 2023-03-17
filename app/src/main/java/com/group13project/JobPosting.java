@@ -14,6 +14,8 @@ public class JobPosting {
     private String employerId;
     private ArrayList<String> applicantsIds;
 
+    public  JobPosting(){}
+
     public JobPosting(String jobTitle, String jobDescription, String expectedDuration, String place, String urgency, String salary, String employerId) {
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;

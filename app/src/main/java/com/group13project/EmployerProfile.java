@@ -42,8 +42,10 @@ public class EmployerProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User current = snapshot.getValue(User.class);
-                String neww = current.firstName + "\n" + current.lastName + "\n" + current.phoneNumber + "\n" + current.emailAddress;
-                details.setText(neww);
+                if (current != null && current.firstName!= null) {
+                    String neww = current.firstName + "\n" + current.lastName + "\n" + current.phoneNumber + "\n" + current.emailAddress;
+                    details.setText(neww);
+                }
             }
 
             @Override

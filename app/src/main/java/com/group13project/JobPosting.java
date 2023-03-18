@@ -1,5 +1,6 @@
 package com.group13project;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 // JobPosting class
@@ -10,14 +11,20 @@ public class JobPosting {
     private String place;
     private String urgency;
     private String salary;
+    private String employerId;
+    private ArrayList<String> applicantsIds;
 
-    public JobPosting(String jobTitle, String jobDescription, String expectedDuration, String place, String urgency, String salary) {
+    public  JobPosting(){}
+
+    public JobPosting(String jobTitle, String jobDescription, String expectedDuration, String place, String urgency, String salary, String employerId) {
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;
         this.expectedDuration = expectedDuration;
         this.place = place;
         this.urgency = urgency;
         this.salary = salary;
+        this.employerId = employerId;
+        this.applicantsIds = new ArrayList<String>();
     }
 
     public String getJobTitle() {
@@ -68,6 +75,22 @@ public class JobPosting {
         this.salary = salary;
     }
 
+    public String getEmployerId() {
+        return employerId;
+    }
+
+    public void setEmployerId(String employerId) {
+        this.employerId = employerId;
+    }
+
+    public ArrayList<String> getApplicantsIds() {
+        return applicantsIds;
+    }
+
+    public void addApplicant(String newApplicantsId) {
+        this.applicantsIds.add(newApplicantsId);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -95,7 +118,12 @@ public class JobPosting {
         if (!Objects.equals(this.salary, other.salary)) {
             return false;
         }
+        if (!Objects.equals(this.employerId, other.employerId)) {
+            return false;
+        }
+        if (!Objects.equals(this.applicantsIds, other.applicantsIds)) {
+            return false;
+        }
         return true;
     }
-
 }

@@ -23,8 +23,8 @@ public class EmployerHomeActivity extends AppCompatActivity {
         postedJob = findViewById(R.id.postedJobs);
         postedJob.setOnClickListener(buttonClickListener);
 
-        postedJob = findViewById(R.id.profile);
-        postedJob.setOnClickListener(buttonClickListener);
+        profile = findViewById(R.id.profile);
+        profile.setOnClickListener(buttonClickListener);
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {

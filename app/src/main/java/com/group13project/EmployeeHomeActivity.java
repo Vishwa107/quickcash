@@ -46,8 +46,8 @@ public class EmployeeHomeActivity extends AppCompatActivity implements LocationL
         ArrayList<JobPosting> jobPostingArrayList = new ArrayList<JobPosting>();
 
         //the following data just for test purpose------------------------
-        JobPosting job1 = new JobPosting("walk dog","no description", "1 hour", "21 street", "not urgen", "$13");
-        JobPosting job2 = new JobPosting("look after baby", "19 year-old or above", "2 days", "young st", "urgen", "$25");
+        JobPosting job1 = new JobPosting("walk dog","no description", "1 hour", "21 street", "not urgen", "$13","JOGP2gnsNhf9S2E0kIXkkBGKXk32");
+        JobPosting job2 = new JobPosting("look after baby", "19 year-old or above", "2 days", "young st", "urgen", "$25","JOGP2gnsNhf9S2E0kIXkkBGKXk32");
 
         jobPostingArrayList.add(job1);
         jobPostingArrayList.add(job2);

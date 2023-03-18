@@ -32,12 +32,6 @@ public class EmployeeHomepageEspresso {
     @Test
     public void checkIfSwitchToEmployerPage(){
 
-
-        try {
-            Thread.sleep(50000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         onView(withId(R.id.employerPage)).perform(click());
         intended(hasComponent(EmployerHomeActivity.class.getName()));
     }

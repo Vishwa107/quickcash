@@ -45,13 +45,6 @@ public class EmployeeHomeActivity extends AppCompatActivity implements LocationL
         //the array that store all the JobPosting class in this array
         ArrayList<JobPosting> jobPostingArrayList = new ArrayList<JobPosting>();
 
-        //the following data just for test purpose------------------------
-        JobPosting job1 = new JobPosting("walk dog","no description", "1 hour", "21 street", "not urgen", "$13","JOGP2gnsNhf9S2E0kIXkkBGKXk32");
-        JobPosting job2 = new JobPosting("look after baby", "19 year-old or above", "2 days", "young st", "urgen", "$25","JOGP2gnsNhf9S2E0kIXkkBGKXk32");
-
-        jobPostingArrayList.add(job1);
-        jobPostingArrayList.add(job2);
-        //-----------------------------------------------------------------------
 
         //The list view will show all the jobs on the screen
         ListView jobList = (ListView)findViewById(R.id.jobList);
@@ -136,10 +129,7 @@ public class EmployeeHomeActivity extends AppCompatActivity implements LocationL
         public void onClick(View v) {
             // checking which button is clicked, then redirecting accordingly
             switch (v.getId()) {
-//                case R.id.employeePage:
-//                    Intent employeePageIntent = new Intent(JobSearchPageActivity.this, EmployeeHomeActivity.class);
-//                    startActivity(employeePageIntent);
-//                    break;
+
                 case R.id.employerPage:
                     Intent employerPageIntent = new Intent(EmployeeHomeActivity.this, EmployerHomeActivity.class);
                     startActivity(employerPageIntent);

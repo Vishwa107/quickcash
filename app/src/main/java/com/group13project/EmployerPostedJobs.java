@@ -31,7 +31,7 @@ public class EmployerPostedJobs extends AppCompatActivity {
         TextView jobs = (TextView)findViewById(R.id.jobs);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         String userID = user.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("job_postings");
@@ -41,7 +41,7 @@ public class EmployerPostedJobs extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         JobPosting jobPosting = snapshot.getValue(JobPosting.class);
-                        if(jobPosting.getEmployerId().equals(userID)){
+                        if(jobPosting != null  && jobPosting.getEmployerId()!=null && jobPosting.getEmployerId().equals(userID)){
                             final String info = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
                             jobsList.add(info);
                         }

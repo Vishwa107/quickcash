@@ -17,6 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This activity allows the user to sign up for an account using Firebase authentication and saves the user's
+ * information to the Firebase database.
+ */
+
 public class SignupPageActivity extends Activity implements View.OnClickListener {
 
     public static final String VALID = "valid";

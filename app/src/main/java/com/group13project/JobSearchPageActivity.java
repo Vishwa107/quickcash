@@ -10,12 +10,23 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * The `JobSearchPageActivity` class is responsible for displaying the list of job postings to the user.
+ */
+
 public class JobSearchPageActivity extends AppCompatActivity {
 
     Button employeePageButton;
     Button employerPageButton;
     Button logOutButton;
 
+
+    /**
+     * Initializes the `JobSearchPageActivity` instance and sets up the layout.
+     * Also initializes the buttons and the `JobPosting` array list.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +51,14 @@ public class JobSearchPageActivity extends AppCompatActivity {
     }
 
 
-    //this method should take the job data from database and fill the array
+
+    /**
+     * This method retrieves the job postings data from the database and fills the `jobPostingArrayList` array.
+     *
+     * @param jobPostingArrayList The array list to fill with job postings data.
+     */
     public void fillArray(ArrayList<JobPosting> jobPostingArrayList){
         //need implementation
-
     }
 
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {

@@ -12,6 +12,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.group13project.databinding.ActivityMapsBinding;
 
+/**
+ * This activity displays a map using the Google Maps API and allows the user to add markers or lines,
+ * add listeners, or move the camera.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -38,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
+     *
+     * @param googleMap The GoogleMap object representing the map.
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {

@@ -7,12 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * This activity serves as the home screen for employers, providing access to the different features of the app.
+ */
 public class EmployerHomeActivity extends AppCompatActivity {
 
     Button newJob;
     Button postedJob;
     Button profile;
 
+
+    /**
+     * This method is called when the activity is created.
+     * It initializes the UI components and sets click listeners for the buttons.
+     *
+     * @param savedInstanceState saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +39,11 @@ public class EmployerHomeActivity extends AppCompatActivity {
         profile.setOnClickListener(buttonClickListener);
     }
 
+
+    /**
+     * This click listener handles clicks on the buttons in the activity.
+     * It redirects the user to the appropriate activity based on the button that was clicked.
+     */
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

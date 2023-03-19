@@ -17,11 +17,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class EmployerProfileTest {
+public class EmployerHomepageTest {
 
     @Rule
-    public ActivityScenarioRule<EmployerProfile> activityScenarioRule =
-            new ActivityScenarioRule<>(EmployerProfile.class);
+    public ActivityScenarioRule<EmployerHomeActivity> activityScenarioRule =
+            new ActivityScenarioRule<>(EmployerHomeActivity.class);
 
     @Test
     public void testNewJobPostingButton() {
@@ -36,6 +36,14 @@ public class EmployerProfileTest {
         Intents.init();
         onView(withId(R.id.postedJobs)).perform(click());
         intended(hasComponent(EmployerPostedJobs.class.getName()));
+        Intents.release();
+    }
+
+    @Test
+    public void testMyProfileButton() {
+        Intents.init();
+        onView(withId(R.id.profile)).perform(click());
+        intended(hasComponent(EmployerProfile.class.getName()));
         Intents.release();
     }
 }

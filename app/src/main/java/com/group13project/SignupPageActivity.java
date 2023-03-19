@@ -17,8 +17,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This activity allows the user to sign up for an account using Firebase authentication and saves the user's
+ * information to the Firebase database.
+ */
+
 public class SignupPageActivity extends Activity implements View.OnClickListener {
 
+    public static final String VALID = "valid";
     // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
@@ -192,7 +198,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!email.matches(regex)){
             return "invalid";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -208,7 +214,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!phone.matches(regex)){
             return "invalid";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -223,7 +229,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(pass.length() < 6){
             return "short";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -239,7 +245,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!pass.equals(passConfirm)){
             return "incorrect";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 }

@@ -11,60 +11,71 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * EmployeeHomeActivity class is the main activity class for the employee dashboard.
- * This class displays a list of job postings and provides the functionality for
- * employees to navigate to the employer dashboard or log out of the application.
+ * The `JobSearchPageActivity` class is responsible for displaying the list of job postings to the user.
  */
-public class EmployeeHomeActivity extends AppCompatActivity{
 
+public class JobSearchPageActivity extends AppCompatActivity {
+
+    Button employeePageButton;
     Button employerPageButton;
     Button logOutButton;
 
+
     /**
-     * Sets up the activity when it is first created. This method initializes the UI elements
-     * and sets up the job list view.
+     * Initializes the `JobSearchPageActivity` instance and sets up the layout.
+     * Also initializes the buttons and the `JobPosting` array list.
      *
-     * @param savedInstanceState the saved instance state of the activity
+     * @param savedInstanceState The saved instance state.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_home);
-        setTitle(R.string.employee_dashboard_title);
+        setContentView(R.layout.activity_job_search_page);
+
+        employeePageButton = findViewById(R.id.employeePage);
+        employeePageButton.setOnClickListener(buttonClickListener);
 
         employerPageButton = findViewById(R.id.employerPage);
         employerPageButton.setOnClickListener(buttonClickListener);
 
         logOutButton = findViewById(R.id.logout);
         logOutButton.setOnClickListener(buttonClickListener);
-        //the array that store all the JobPosting class in this array
+
+
         ArrayList<JobPosting> jobPostingArrayList = new ArrayList<>();
 
 
-        //The list view will show all the jobs on the screen
         ListView jobList = (ListView)findViewById(R.id.jobList);
         JobDetailAdapter adapter = new JobDetailAdapter(getApplicationContext(), R.layout.list_view_for_job_search, jobPostingArrayList);
         jobList.setAdapter(adapter);
-
-
     }
 
+
+
     /**
-     * OnClickListener for the employerPage and logOut buttons. Redirects the user to the employer
-     * dashboard or the login page based on which button is clicked.
+     * This method retrieves the job postings data from the database and fills the `jobPostingArrayList` array.
+     *
+     * @param jobPostingArrayList The array list to fill with job postings data.
      */
+    public void fillArray(ArrayList<JobPosting> jobPostingArrayList){
+        //need implementation
+    }
+
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // checking which button is clicked, then redirecting accordingly
             switch (v.getId()) {
-
+                case R.id.employeePage:
+                    Intent employeePageIntent = new Intent(JobSearchPageActivity.this, EmployeeHomeActivity.class);
+                    startActivity(employeePageIntent);
+                    break;
                 case R.id.employerPage:
-                    Intent employerPageIntent = new Intent(EmployeeHomeActivity.this, EmployerHomeActivity.class);
+                    Intent employerPageIntent = new Intent(JobSearchPageActivity.this, EmployerHomeActivity.class);
                     startActivity(employerPageIntent);
                     break;
                 case R.id.logout:
-                    Intent loginIntent = new Intent(EmployeeHomeActivity.this, LoginPageActivity.class);
+                    Intent loginIntent = new Intent(JobSearchPageActivity.this, LoginPageActivity.class);
                     startActivity(loginIntent);
                     break;
                 default:
@@ -72,5 +83,4 @@ public class EmployeeHomeActivity extends AppCompatActivity{
             }
         }
     };
-
 }

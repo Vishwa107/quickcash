@@ -7,7 +7,8 @@
 # Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-image: openjdk:8-jdk
+# image: openjdk:8-jdk
+image: openjdk:11
 
 variables:
 
@@ -55,6 +56,9 @@ before_script:
   - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
   - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
 
+   # Add the command to create local.properties file
+  - echo "sdk.dir=$ANDROID_HOME" > local.properties
+
   # Not necessary, but just for surity
   - chmod +x ./gradlew
 
@@ -82,3 +86,13 @@ debugTests:
   stage: test
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
+
+unit_tests:
+  stage: test
+  script:
+    - ./gradlew test
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - app/build/reports/tests/

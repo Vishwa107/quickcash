@@ -7,6 +7,10 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This activity is the main screen of the app and allows the user to navigate to the sign up or login screens.
+ */
+
 public class MainActivity extends AppCompatActivity {
     Button signUpButton;
     Button loginButton;
@@ -23,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(buttonClickListener);
     }
 
+    /**
+     * This listener handles button clicks on the screen and redirects the user to the appropriate activity.
+     */
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

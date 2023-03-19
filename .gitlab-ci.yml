@@ -7,7 +7,8 @@
 # Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-image: openjdk:11-jdk
+# image: openjdk:8-jdk
+image: openjdk:11
 
 variables:
 
@@ -28,8 +29,6 @@ variables:
 
 # Packages installation before running script
 before_script:
-  
-  - echo "sdk.dir=${ANDROID_HOME}" > local.properties
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
 
@@ -84,3 +83,13 @@ debugTests:
   stage: test
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
+
+unit_tests:
+  stage: test
+  script:
+    - ./gradlew test
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - app/build/reports/tests/

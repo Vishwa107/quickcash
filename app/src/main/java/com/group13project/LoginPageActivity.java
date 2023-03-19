@@ -20,11 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPageActivity extends Activity implements View.OnClickListener {
 
+    public static final String EMPTY = "empty";
     // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
     // declaring input fields
-    private EditText emailAddress, password;
+    private EditText emailAddress;
+    private EditText password;
 
     // declaring login button
     private Button logInButton;
@@ -88,7 +90,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
      */
     protected boolean validateInputLogin(String emailId, String pass) {
         // validating fields
-        if(validateEmailAddress(emailId).equals("empty")){
+        if(validateEmailAddress(emailId).equals(EMPTY)){
             emailAddress.setError("Fill in your email address");
             emailAddress.requestFocus();
             return false;
@@ -97,7 +99,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
             emailAddress.requestFocus();
             return false;
         }
-        if(validatePassword(pass).equals("empty")){
+        if(validatePassword(pass).equals(EMPTY)){
             password.setError("Fill in your password");
             password.requestFocus();
             return false;
@@ -117,7 +119,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
     protected String validateEmailAddress(String email){
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(email.isEmpty()){
-            return "empty";
+            return EMPTY;
         }else if(!email.matches(regex)){
             return "invalid";
         }else{
@@ -132,7 +134,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
      */
     protected String validatePassword(String pass){
         if(pass.isEmpty()){
-            return "empty";
+            return EMPTY;
         }else if(pass.length() < 6){
             return "short";
         }else{

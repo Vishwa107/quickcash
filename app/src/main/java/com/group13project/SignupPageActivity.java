@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupPageActivity extends Activity implements View.OnClickListener {
 
+    public static final String VALID = "valid";
     // declaring Firebase authentication
     private FirebaseAuth mAuth;
 
@@ -192,7 +193,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!email.matches(regex)){
             return "invalid";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -208,7 +209,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!phone.matches(regex)){
             return "invalid";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -223,7 +224,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(pass.length() < 6){
             return "short";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 
@@ -239,7 +240,7 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
         }else if(!pass.equals(passConfirm)){
             return "incorrect";
         }else{
-            return "valid";
+            return VALID;
         }
     }
 }

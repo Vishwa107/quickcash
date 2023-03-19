@@ -39,16 +39,16 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
 
         requestPermissionsIfNeeded();
 
-        Button employer_view=(Button) findViewById(R.id.employer_view);
-        employer_view.setOnClickListener(new View.OnClickListener() {
+        Button employerView=(Button) findViewById(R.id.employer_view);
+        employerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ChooseViewActivity.this,EmployerHomeActivity.class));
             }
         });
 
-        Button employee_view=(Button) findViewById(R.id.employee_view);
-        employee_view.setOnClickListener(new View.OnClickListener() {
+        Button employeeView=(Button) findViewById(R.id.employee_view);
+        employeeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ChooseViewActivity.this,EmployeeHomeActivity.class));
@@ -73,7 +73,8 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0
@@ -137,12 +138,18 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
 
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onProviderDisabled(String provider) {        // Method empty because function not implemented yet
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderEnabled(String provider) {
+        // Method empty because function not implemented yet
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    }
+
+    @Deprecated
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // Method empty because function not implemented yet
+    }
 
 }

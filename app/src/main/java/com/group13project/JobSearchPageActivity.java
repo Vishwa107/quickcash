@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -15,7 +14,7 @@ public class JobSearchPageActivity extends AppCompatActivity {
 
     Button employeePageButton;
     Button employerPageButton;
-    Button log_outButton;
+    Button logOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +27,12 @@ public class JobSearchPageActivity extends AppCompatActivity {
         employerPageButton = findViewById(R.id.employerPage);
         employerPageButton.setOnClickListener(buttonClickListener);
 
-        log_outButton = findViewById(R.id.logout);
-        log_outButton.setOnClickListener(buttonClickListener);
+        logOutButton = findViewById(R.id.logout);
+        logOutButton.setOnClickListener(buttonClickListener);
 
 
-        ArrayList<JobPosting> jobPostingArrayList = new ArrayList<JobPosting>();
-        //fillArray(jobPostingArrayList);
+        ArrayList<JobPosting> jobPostingArrayList = new ArrayList<>();
 
-        //the following data just for test purpose------------------------
-//        JobPosting job1 = new JobPosting("walk dog","no description", "1 hour", "21 street", "not urgen", "$13");
-//        JobPosting job2 = new JobPosting("look after baby", "19 year-old or above", "2 days", "young st", "urgen", "$25");
-//
-//        jobPostingArrayList.add(job1);
-//        jobPostingArrayList.add(job2);
-        //-----------------------------------------------------------------------
 
         ListView jobList = (ListView)findViewById(R.id.jobList);
         JobDetailAdapter adapter = new JobDetailAdapter(getApplicationContext(), R.layout.list_view_for_job_search, jobPostingArrayList);

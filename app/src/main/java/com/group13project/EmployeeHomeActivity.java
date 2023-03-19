@@ -1,26 +1,19 @@
 package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class EmployeeHomeActivity extends AppCompatActivity{
 
     Button employerPageButton;
-    Button log_outButton;
+    Button logOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +24,10 @@ public class EmployeeHomeActivity extends AppCompatActivity{
         employerPageButton = findViewById(R.id.employerPage);
         employerPageButton.setOnClickListener(buttonClickListener);
 
-        log_outButton = findViewById(R.id.logout);
-        log_outButton.setOnClickListener(buttonClickListener);
+        logOutButton = findViewById(R.id.logout);
+        logOutButton.setOnClickListener(buttonClickListener);
         //the array that store all the JobPosting class in this array
-        ArrayList<JobPosting> jobPostingArrayList = new ArrayList<JobPosting>();
+        ArrayList<JobPosting> jobPostingArrayList = new ArrayList<>();
 
 
         //The list view will show all the jobs on the screen

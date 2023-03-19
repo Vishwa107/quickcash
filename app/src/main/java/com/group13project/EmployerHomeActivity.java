@@ -9,7 +9,9 @@ import android.widget.Button;
 
 public class EmployerHomeActivity extends AppCompatActivity {
 
-    Button newJob, postedJob, profile;
+    Button newJob;
+    Button postedJob;
+    Button profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

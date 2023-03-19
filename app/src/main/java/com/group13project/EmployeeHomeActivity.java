@@ -10,11 +10,22 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+/**
+ * EmployeeHomeActivity class is the main activity class for the employee dashboard.
+ * This class displays a list of job postings and provides the functionality for
+ * employees to navigate to the employer dashboard or log out of the application.
+ */
 public class EmployeeHomeActivity extends AppCompatActivity{
 
     Button employerPageButton;
     Button logOutButton;
 
+    /**
+     * Sets up the activity when it is first created. This method initializes the UI elements
+     * and sets up the job list view.
+     *
+     * @param savedInstanceState the saved instance state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +48,11 @@ public class EmployeeHomeActivity extends AppCompatActivity{
 
 
     }
+
+    /**
+     * OnClickListener for the employerPage and logOut buttons. Redirects the user to the employer
+     * dashboard or the login page based on which button is clicked.
+     */
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

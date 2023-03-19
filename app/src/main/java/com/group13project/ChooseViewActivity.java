@@ -25,11 +25,23 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * ChooseViewActivity class allows the user to choose between the employer view and employee view.
+ * This class also checks for location permissions and prompts the user to enable GPS if it is disabled.
+ */
 public class ChooseViewActivity extends AppCompatActivity implements LocationListener{
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private LocationManager locationManager;
 
+
+    /**
+     * Sets up the activity when it is first created. This method initializes the UI elements,
+     * requests location permissions, and sets up click listeners for the employer and employee view buttons.
+     *
+     * @param savedInstanceState the saved instance state of the activity
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +85,15 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    /**
+     * Handles the result of the permission request. If permissions have been granted,
+     * this method gets the user's location and checks if GPS is enabled. If permissions have been denied,
+     * this method requests permissions again.
+     *
+     * @param requestCode the request code of the permission request
+     * @param permissions an array of permissions requested
+     * @param grantResults an array of results for the corresponding permissions requested
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -122,6 +143,13 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    /**
+     * Called when the location has changed. This method uses the Geocoder class to get the city name
+     * based on the latitude and longitude coordinates of the user's location. It then displays the city name
+     * in a toast message. Finally, this method removes location updates.
+     *
+     * @param location the new location
+     */
     @Override
     public void onLocationChanged(Location location) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -137,16 +165,36 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
     }
 
 
+    /**
+     * Called when the provider is disabled. This method is currently empty because this functionality
+     * has not been implemented yet.
+     *
+     * @param provider the name of the disabled provider
+     */
     @Override
     public void onProviderDisabled(String provider) {        // Method empty because function not implemented yet
     }
 
+    /**
+     * Called when the provider is enabled. This method is currently empty because this functionality
+     * has not been implemented yet.
+     *
+     * @param provider the name of the enabled provider
+     */
     @Override
     public void onProviderEnabled(String provider) {
         // Method empty because function not implemented yet
 
     }
 
+    /**
+     * This method is deprecated and should not be used. It is currently empty because this functionality
+     * has not been implemented yet.
+     *
+     * @param provider the name of the provider
+     * @param status the status code for the provider
+     * @param extras additional provider-specific information
+     */
     @Deprecated
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // Method empty because function not implemented yet

@@ -18,6 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.group13project.JobPosting;
 
+/**
+ * This activity allows employers to create new job postings by entering job details and posting them to the database.
+ */
 public class EmployerNewPostActivity extends AppCompatActivity {
 
     private EditText jobTitleEditText;
@@ -30,6 +33,13 @@ public class EmployerNewPostActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
 
+
+    /**
+     * This method is called when the activity is created.
+     * It initializes the UI components and sets a click listener for the post button.
+     *
+     * @param savedInstanceState saved state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +57,12 @@ public class EmployerNewPostActivity extends AppCompatActivity {
 
         // Set click listener for post button
         postButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method is called when the post button is clicked.
+             * It gets the job posting details from the UI components, creates a new job posting, and saves it to the database.
+             *
+             * @param view the view that was clicked
+             */
             @Override
             public void onClick(View view) {
                 // Get job posting details from UI components
@@ -75,16 +91,31 @@ public class EmployerNewPostActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method saves a job posting to the Firebase database.
+     *
+     * @param jobPosting the job posting to save
+     */
     private void saveJobPosting(JobPosting jobPosting) {
         String key = mDatabase.child("job_postings").push().getKey();
         mDatabase.child("job_postings").child(key).setValue(jobPosting)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    /**
+                     * This method is called when the job posting is saved successfully.
+                     *
+                     * @param aVoid the result of the operation
+                     */
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EmployerNewPostActivity.this, "Job posting created successfully", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
+                    /**
+                     * This method is called when there is an error saving the job posting to the database.
+                     *
+                     * @param e the exception that was thrown
+                     */
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(EmployerNewPostActivity.this, "Error creating job posting: " + e.getMessage(), Toast.LENGTH_SHORT).show();

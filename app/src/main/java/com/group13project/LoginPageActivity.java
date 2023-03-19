@@ -18,6 +18,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+/**
+ * The `LoginPageActivity` class is responsible for handling user login and authentication.
+ */
 public class LoginPageActivity extends Activity implements View.OnClickListener {
 
     public static final String EMPTY = "empty";
@@ -31,6 +34,13 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
     // declaring login button
     private Button logInButton;
 
+
+    /**
+     * Initializes the `LoginPageActivity` instance and sets up the layout.
+     * Also initializes the Firebase authentication and the input fields.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

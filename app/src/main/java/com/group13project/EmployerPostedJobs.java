@@ -17,11 +17,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * An activity that displays the job postings created by the currently logged in employer user.
+ */
 public class EmployerPostedJobs extends AppCompatActivity {
     ArrayList<String> jobsList = new ArrayList<>();
     FirebaseUser user = null;
     DatabaseReference databaseReference;
 
+
+    /**
+     * Sets up the activity's UI and retrieves the job postings created by the currently logged in employer user from Firebase.
+     *
+     * @param savedInstanceState    The saved state of the activity, if any.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +45,11 @@ public class EmployerPostedJobs extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("job_postings");
         databaseReference
             .addValueEventListener(new ValueEventListener() {
+                /**
+                 * Retrieves the job postings from Firebase and adds them to the list if they were created by the currently logged in employer user. Displays the list of job postings in the UI.
+                 *
+                 * @param dataSnapshot  The snapshot of the job postings from Firebase.
+                 */
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -51,6 +65,13 @@ public class EmployerPostedJobs extends AppCompatActivity {
                     }
                     jobs.setText(allJobs);
                 }
+
+                /**
+                 * Displays an error message in the UI if the retrieval of the job postings from Firebase fails.
+                 *
+                 * @param databaseError The error message from Firebase.
+                 */
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     jobs.setText(databaseError.getMessage());

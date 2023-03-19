@@ -12,12 +12,22 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * An adapter for displaying job postings in a ListView.
+ */
 public class JobDetailAdapter extends ArrayAdapter<JobPosting> {
 
     ArrayList<JobPosting> jobArray = new ArrayList<>();
     Context context;
     int resource;
 
+    /**
+     * Constructs a new JobDetailAdapter with the specified context, resource ID, and job postings.
+     *
+     * @param context   The context of the application.
+     * @param resource  The resource ID of the layout for each item in the ListView.
+     * @param jobArray  The list of job postings to display.
+     */
     public JobDetailAdapter(@NonNull Context context, int resource, ArrayList<JobPosting> jobArray) {
         super(context, resource, jobArray);
         this.context = context;
@@ -25,6 +35,15 @@ public class JobDetailAdapter extends ArrayAdapter<JobPosting> {
         this.jobArray = jobArray;
     }
 
+
+    /**
+     * Gets the View for each item in the ListView.
+     *
+     * @param position      The position of the item in the ListView.
+     * @param convertView   The old view to reuse, if possible.
+     * @param parent        The parent ViewGroup that this view will eventually be attached to.
+     * @return              The View for the specified position in the ListView.
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

@@ -30,7 +30,6 @@ public class EmployerPostedJobs extends AppCompatActivity {
 
         TextView jobs = (TextView)findViewById(R.id.jobs);
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         String userID = user.getUid();
 

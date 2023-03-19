@@ -24,7 +24,7 @@ public class JobPosting {
         this.urgency = urgency;
         this.salary = salary;
         this.employerId = employerId;
-        this.applicantsIds = new ArrayList<String>();
+        this.applicantsIds = new ArrayList<>();
     }
 
     public String getJobTitle() {

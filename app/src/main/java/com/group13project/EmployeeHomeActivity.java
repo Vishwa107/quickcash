@@ -2,11 +2,10 @@ package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,13 +29,9 @@ public class EmployeeHomeActivity extends AppCompatActivity{
     ArrayList<String> jobsList = new ArrayList<>();
     DatabaseReference databaseReference;
     ListView jobsListView;
+    EditText searchBox;
+    Button searchButton;
 
-    /**
-     * Sets up the activity when it is first created. This method initializes the UI elements
-     * and sets up the job list view.
-     *
-     * @param savedInstanceState the saved instance state of the activity
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +39,28 @@ public class EmployeeHomeActivity extends AppCompatActivity{
         setTitle(R.string.employee_dashboard_title);
 
         jobsListView = findViewById(R.id.jobListView);
+        searchBox = findViewById(R.id.searchBar);
+        searchButton = findViewById(R.id.searchButton);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("job_postings");
+
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchBox.getText().toString();
+            searchJobPostings(searchQuery);
+        });
+
+        // Load all job postings initially
+        loadAllJobPostings();
+    }
+
+    /**
+     * This method loads and displays all the job postings in the Realtime database when the activity starts.
+     */
+    private void loadAllJobPostings() {
         databaseReference.addValueEventListener(new ValueEventListener() {
-            /**
-             * Retrieves the job postings from Firebase and adds them to the list if they were created by the currently logged in employer user. Displays the list of job postings in the UI.
-             *
-             * @param dataSnapshot  The snapshot of the job postings from Firebase.
-             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                jobsList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                     if (jobPosting != null) {
@@ -65,18 +72,29 @@ public class EmployeeHomeActivity extends AppCompatActivity{
                 jobsListView.setAdapter(adapter);
             }
 
-            /**
-             * Displays an error message in the UI if the retrieval of the job postings from Firebase fails.
-             *
-             * @param databaseError The error message from Firebase.
-             */
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
+
+    /**
+     * This method searches the job postings that were loaded from the database for any matches with the given search query.
+     * @param searchQuery a string to search the for matches with the job postings.
+     */
+    private void searchJobPostings(String searchQuery) {
+        searchQuery = searchQuery.toLowerCase();
+        ArrayList<String> filteredJobsList = new ArrayList<>();
+        for (String jobInfo : jobsList) {
+            if (jobInfo.toLowerCase().contains(searchQuery)) {
+                filteredJobsList.add(jobInfo);
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
+        jobsListView.setAdapter(adapter);
+    }
+
 
 
 }

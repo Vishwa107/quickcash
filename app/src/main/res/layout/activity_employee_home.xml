@@ -5,46 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".EmployeeHomeActivity">
 
-    <Button
-        android:id="@+id/employerPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Employer"
-        app:layout_constraintBaseline_toBaselineOf="@+id/logout"
-        app:layout_constraintStart_toStartOf="@+id/textView8" />
-
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Log out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toEndOf="@+id/employerPage"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="379dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="627dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="Jobs near you"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/jobList"
-        android:layout_width="379dp"
-        android:layout_height="625dp"
+        android:id="@+id/jobListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:divider="@color/black"
+        android:dividerHeight="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="@+id/textView8" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/textView8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

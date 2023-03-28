@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:text="My Jobs" />
 
-        <Button
-            android:id="@+id/profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Profile" />
+<!--        <Button-->
+<!--            android:id="@+id/profile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="My Profile" />-->
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

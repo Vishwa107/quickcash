@@ -3,7 +3,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.app.Activity;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +29,15 @@ public class ChooseViewActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ChooseViewActivity.this,EmployeeHomeActivity.class));
+            }
+        });
+
+        Button my_profile_view = (Button) findViewById(R.id.myProfile_view);
+
+        my_profile_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChooseViewActivity.this,ProfilePage.class));
             }
         });
     }

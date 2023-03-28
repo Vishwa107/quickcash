@@ -6,8 +6,6 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import android.content.Intent;
-
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -17,11 +15,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class EmployerProfileTest {
+public class ProfilePageTest {
 
     @Rule
-    public ActivityScenarioRule<EmployerProfile> activityScenarioRule =
-            new ActivityScenarioRule<>(EmployerProfile.class);
+    public ActivityScenarioRule<ProfilePage> activityScenarioRule =
+            new ActivityScenarioRule<>(ProfilePage.class);
 
     @Test
     public void testNewJobPostingButton() {

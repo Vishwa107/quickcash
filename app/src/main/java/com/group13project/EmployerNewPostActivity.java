@@ -1,6 +1,8 @@
 package com.group13project;
 
+import android.app.Notification;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +16,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-
+import com.google.firebase.messaging.RemoteMessage;
 import com.group13project.JobPosting;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * This activity allows employers to create new job postings by entering job details and posting them to the database.
@@ -31,6 +33,7 @@ public class EmployerNewPostActivity extends AppCompatActivity {
     private EditText salaryEditText;
     private Button postButton;
     private DatabaseReference mDatabase;
+    private final static String userSignupTopic = "UserSignup";
 
 
 
@@ -108,6 +111,7 @@ public class EmployerNewPostActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EmployerNewPostActivity.this, "Job posting created successfully", Toast.LENGTH_SHORT).show();
+                        sendNotification();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -121,6 +125,18 @@ public class EmployerNewPostActivity extends AppCompatActivity {
                         Toast.makeText(EmployerNewPostActivity.this, "Error creating job posting: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    private void sendNotification() {
+        com.google.firebase.messaging.Message message =
+                com.google.firebase.messaging.Message.builder()
+                        .putData("Message:","A new job posting has been released, check it out!")
+                        .setTopic(userSignupTopic)
+                        .build();
+        // Send a message to the devices subscribed to the provided topic.
+        String response = FirebaseMessaging.getInstance().send(message);
+// Response is a message ID string.
+        System.out.println("Successfully sent message: " + response);
+
     }
 
 }

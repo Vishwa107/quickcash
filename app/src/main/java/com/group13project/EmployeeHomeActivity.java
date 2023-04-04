@@ -2,11 +2,20 @@ package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -17,60 +26,75 @@ import java.util.ArrayList;
  */
 public class EmployeeHomeActivity extends AppCompatActivity{
 
-    Button employerPageButton;
-    Button logOutButton;
+    ArrayList<String> jobsList = new ArrayList<>();
+    DatabaseReference databaseReference;
+    ListView jobsListView;
+    EditText searchBox;
+    Button searchButton;
 
-    /**
-     * Sets up the activity when it is first created. This method initializes the UI elements
-     * and sets up the job list view.
-     *
-     * @param savedInstanceState the saved instance state of the activity
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_home);
         setTitle(R.string.employee_dashboard_title);
 
-        employerPageButton = findViewById(R.id.employerPage);
-        employerPageButton.setOnClickListener(buttonClickListener);
+        jobsListView = findViewById(R.id.jobListView);
+        searchBox = findViewById(R.id.searchBar);
+        searchButton = findViewById(R.id.searchButton);
 
-        logOutButton = findViewById(R.id.logout);
-        logOutButton.setOnClickListener(buttonClickListener);
-        //the array that store all the JobPosting class in this array
-        ArrayList<JobPosting> jobPostingArrayList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("job_postings");
 
+        searchButton.setOnClickListener(view -> {
+            String searchQuery = searchBox.getText().toString();
+            searchJobPostings(searchQuery);
+        });
 
-        //The list view will show all the jobs on the screen
-        ListView jobList = (ListView)findViewById(R.id.jobList);
-        JobDetailAdapter adapter = new JobDetailAdapter(getApplicationContext(), R.layout.list_view_for_job_search, jobPostingArrayList);
-        jobList.setAdapter(adapter);
-
-
+        // Load all job postings initially
+        loadAllJobPostings();
     }
 
     /**
-     * OnClickListener for the employerPage and logOut buttons. Redirects the user to the employer
-     * dashboard or the login page based on which button is clicked.
+     * This method loads and displays all the job postings in the Realtime database when the activity starts.
      */
-    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // checking which button is clicked, then redirecting accordingly
-            switch (v.getId()) {
+    private void loadAllJobPostings() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                jobsList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    JobPosting jobPosting = snapshot.getValue(JobPosting.class);
+                    if (jobPosting != null) {
+                        final String jobInfo = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
+                        jobsList.add(jobInfo);
+                    }
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
+                jobsListView.setAdapter(adapter);
+            }
 
-                case R.id.employerPage:
-                    Intent employerPageIntent = new Intent(EmployeeHomeActivity.this, EmployerHomeActivity.class);
-                    startActivity(employerPageIntent);
-                    break;
-                case R.id.logout:
-                    Intent loginIntent = new Intent(EmployeeHomeActivity.this, LoginPageActivity.class);
-                    startActivity(loginIntent);
-                    break;
-                default:
-                    break;
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    /**
+     * This method searches the job postings that were loaded from the database for any matches with the given search query.
+     * @param searchQuery a string to search the for matches with the job postings.
+     */
+    private void searchJobPostings(String searchQuery) {
+        searchQuery = searchQuery.toLowerCase();
+        ArrayList<String> filteredJobsList = new ArrayList<>();
+        for (String jobInfo : jobsList) {
+            if (jobInfo.toLowerCase().contains(searchQuery)) {
+                filteredJobsList.add(jobInfo);
             }
         }
-    };
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
+        jobsListView.setAdapter(adapter);
+    }
+
+
 
 }

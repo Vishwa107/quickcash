@@ -2,7 +2,10 @@ package com.group13project;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
  */
 public class EmployerPostedJobs extends AppCompatActivity {
     ArrayList<String> jobsList = new ArrayList<>();
+    ListView jobListView;
     FirebaseUser user = null;
     DatabaseReference databaseReference;
 
@@ -37,7 +41,7 @@ public class EmployerPostedJobs extends AppCompatActivity {
         setContentView(R.layout.activity_employer_posted_job);
         setTitle("Posted Jobs");
 
-        TextView jobs = (TextView)findViewById(R.id.jobs);
+        jobListView = findViewById(R.id.jobListView);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         String userID = user.getUid();
@@ -55,15 +59,12 @@ public class EmployerPostedJobs extends AppCompatActivity {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                         if(jobPosting != null  && jobPosting.getEmployerId()!=null && jobPosting.getEmployerId().equals(userID)){
-                            final String info = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
+                            final String info = jobPosting.getJobTitle().toUpperCase() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
                             jobsList.add(info);
                         }
                     }
-                    String allJobs = "";
-                    for(String text : jobsList){
-                        allJobs += text;
-                    }
-                    jobs.setText(allJobs);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployerPostedJobs.this, android.R.layout.simple_list_item_1, jobsList);
+                    jobListView.setAdapter(adapter);
                 }
 
                 /**
@@ -74,7 +75,7 @@ public class EmployerPostedJobs extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    jobs.setText(databaseError.getMessage());
+                    Toast.makeText(EmployerPostedJobs.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 /**
@@ -56,6 +57,8 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
         // initializing login button
         logInButton = findViewById(R.id.checkValidButton);
         logInButton.setOnClickListener(this);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("jobs");
     }
 
     /**
@@ -82,9 +85,9 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    FirebaseMessaging.getInstance().subscribeToTopic("jobs");
                     //redirect to user profile or home page for employee or employer
                     startActivity(new Intent(LoginPageActivity.this,ChooseViewActivity.class));
-
                 }else{
                     Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your credentials.",Toast.LENGTH_LONG).show();
                 }

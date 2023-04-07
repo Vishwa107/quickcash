@@ -1,6 +1,11 @@
 package com.group13project;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -10,7 +15,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +31,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.RemoteMessage;
 import com.group13project.JobPosting;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This activity allows employers to create new job postings by entering job details and posting them to the database.
@@ -34,9 +52,19 @@ public class EmployerNewPostActivity extends AppCompatActivity {
     private Button postButton;
     private DatabaseReference mDatabase;
     private final static String userSignupTopic = "UserSignup";
+    private final static String PUSH_NOTIFICATION_ENDPOINT = "https://fcm.googleapis.com/fcm/send";
+    private RequestQueue requestQueue;
+    private FirebaseMessageReceiver messageReceiver;
 
+    private void init(){
+        postButton= findViewById(R.id.postButton);
+        requestQueue=Volley.newRequestQueue(this);
+        FirebaseMessaging.getInstance().subscribeToTopic("jobs");
+    }
 
-
+    private void setListeners(){
+        postButton.setOnClickListener(view->sendNotification());
+    }
     /**
      * This method is called when the activity is created.
      * It initializes the UI components and sets a click listener for the post button.
@@ -56,7 +84,7 @@ public class EmployerNewPostActivity extends AppCompatActivity {
         placeEditText = findViewById(R.id.placeEditText);
         urgencyEditText = findViewById(R.id.urgencyEditText);
         salaryEditText = findViewById(R.id.salaryEditText);
-        postButton = findViewById(R.id.postButton);
+        init();
 
         // Set click listener for post button
         postButton.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +119,43 @@ public class EmployerNewPostActivity extends AppCompatActivity {
                 salaryEditText.setText("");
             }
         });
-
     }
+
+private void sendNotification() {
+    try{
+        final JSONObject notiText = new JSONObject();
+        notiText.put("title", "NEW JOB POSTING AVAILABLE");
+        notiText.put("body", "A new job posting has been created. Go check it out!");
+
+        //final JSONObject metadata = new JSONObject();
+        //metadata.put("jobId", "HF-111111");
+        //.put("jobLocation", "Halifax");
+
+        final JSONObject notification = new JSONObject();
+        notification.put("to", "/topics/jobs");
+        notification.put("notification", notiText);
+        //notification.put("data", metadata);
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PUSH_NOTIFICATION_ENDPOINT,
+                notification, (Response.Listener<JSONObject>) response -> Toast.makeText(EmployerNewPostActivity.this, "Notification delivered.", Toast.LENGTH_SHORT).show(),
+                Throwable::printStackTrace) {
+            @Override
+            public Map<String, String> getHeaders() {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("content-type", "application/json");
+                headers.put("authorization", "key=" + BuildConfig.FIREBASE_SERVER_KEY);
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }catch(JSONException e){
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        e.printStackTrace();
+    }
+}
+
 
     /**
      * This method saves a job posting to the Firebase database.
@@ -126,17 +189,6 @@ public class EmployerNewPostActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void sendNotification() {
-        com.google.firebase.messaging.Message message =
-                com.google.firebase.messaging.Message.builder()
-                        .putData("Message:","A new job posting has been released, check it out!")
-                        .setTopic(userSignupTopic)
-                        .build();
-        // Send a message to the devices subscribed to the provided topic.
-        String response = FirebaseMessaging.getInstance().send(message);
-// Response is a message ID string.
-        System.out.println("Successfully sent message: " + response);
 
-    }
 
 }

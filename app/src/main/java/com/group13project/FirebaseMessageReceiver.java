@@ -1,5 +1,6 @@
 package com.group13project;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +12,8 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -20,75 +23,48 @@ public class FirebaseMessageReceiver
 
     private static final String TAG = "Project/";
 
+    private static final String title = "New Job Posting";
+    private static final String message = "A new job posting has been released, check it out!";
     // Override onNewToken to get new token
     @Override
     public void onNewToken(@NonNull String token)
     {
-        Log.d(TAG, "Refreshed token: " + token);
+        super.onNewToken(token);
     }
 
-
-    // Override onMessageReceived() method to extract the
-    // title and
-    // body from the message passed in FCM
     @Override
-    public void
-    onMessageReceived(RemoteMessage remoteMessage)
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage)
     {
-        if (remoteMessage.getNotification() != null) {
-            // Since the notification is received directly
-            // from FCM, the title and the body can be
-            // fetched directly as below.
-            showNotification(
-                    remoteMessage.getNotification().getTitle(),
-                    remoteMessage.getNotification().getBody());
+        super.onMessageReceived(remoteMessage);
+        if (remoteMessage.getNotification() == null) {
+            return;
         }
-    }
 
+        final String title = remoteMessage.getNotification().getTitle();
+        final String body = remoteMessage.getNotification().getBody();
 
-    // Method to display the notifications
-    public void showNotification(String title,
-                                 String message)
-    {
-        // Pass the intent to switch to the MainActivity
-        Intent intent = new Intent(this, MainActivity.class);
-        // Assign channel ID
-        String channel_id = "notification_channel";
-        // Here FLAG_ACTIVITY_CLEAR_TOP flag is set to clear
-        // the activities present in the activity stack,
-        // on the top of the Activity that is to be launched
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // Pass the intent to PendingIntent to start the
-        // next Activity
-        PendingIntent pendingIntent
-                = PendingIntent.getActivity(
-                this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+        Intent intent = new Intent (this, EmployerNewPostActivity.class);
+        intent.putExtra("title",title);
+        intent.putExtra("body",body);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),10,intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-        // Create a Builder object using NotificationCompat
-        // class. This will allow control over all the flags
-        NotificationCompat.Builder builder
-                = new NotificationCompat
-                .Builder(getApplicationContext(),
-                channel_id)
-                .setAutoCancel(true)
-                .setVibrate(new long[] { 1000, 1000, 1000,
-                        1000, 1000 })
-                .setOnlyAlertOnce(true)
-                .setContentIntent(pendingIntent);
+        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this, "JOB_POSTINGS")
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(com.google.firebase.messaging.R.drawable.notification_icon_background);
 
-            builder = builder.setContentTitle(title)
-                    .setContentText(message);
+        notiBuilder.setContentIntent(pendingIntent);
 
-        // Create an object of NotificationManager class to
-        // notify the
-        // user of events that happen in the background.
-        NotificationManager notificationManager
-                = (NotificationManager)getSystemService(
-                Context.NOTIFICATION_SERVICE);
-        // Check if the Android Version is greater than Oreo
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, builder.build());
+        int id = (int) System.currentTimeMillis();
+
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("JOB_POSTINGS", "JOB_POSTINGS", NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(id, notiBuilder.build());
     }
 }
 

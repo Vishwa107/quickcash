@@ -2,6 +2,7 @@ package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class EmployeeHomeActivity extends AppCompatActivity{
 
     ArrayList<String> jobsList = new ArrayList<>();
+    ArrayList<String> employerIdsList = new ArrayList<>(); // Add this line to store employerIds
     DatabaseReference databaseReference;
     ListView jobsListView;
     EditText searchBox;
@@ -61,20 +63,31 @@ public class EmployeeHomeActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jobsList.clear();
+                employerIdsList.clear(); // Add this line to clear the list when onDataChange is called
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                     if (jobPosting != null) {
-                        final String jobInfo = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
+                        String employerId = jobPosting.getEmployerId(); // get the employerId of the current job posting
+                        employerIdsList.add(employerId); // Add this line to store the employerId in the list
+                        String jobInfo = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
                         jobsList.add(jobInfo);
                     }
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
                 jobsListView.setAdapter(adapter);
+
+                // Set the click listener here, outside the loop
+                jobsListView.setOnItemClickListener((parent, view, position, id) -> {
+                    String selectedEmployerId = employerIdsList.get(position); // Get the employerId corresponding to the clicked item
+                    Intent intent = new Intent(EmployeeHomeActivity.this, UserHistoryActivity.class);
+                    intent.putExtra("selectedUserId", selectedEmployerId);
+                    startActivity(intent);
+                });
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                         Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

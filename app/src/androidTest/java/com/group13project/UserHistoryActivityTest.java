@@ -33,6 +33,4 @@ public class UserHistoryActivityTest {
         Espresso.onView(withId(R.id.user_history_list))
                 .check(matches(isDisplayed()));
     }
-
-    // Add more test methods as needed
 }

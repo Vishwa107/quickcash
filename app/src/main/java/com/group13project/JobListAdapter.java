@@ -9,19 +9,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-public class JobListAdapter extends ArrayAdapter<String> {
+public class JobListAdapter extends ArrayAdapter<JobPosting> {
     private Context context;
-    private ArrayList<String> jobInfoList;
+    private ArrayList<JobPosting> jobInfoList;
     private ArrayList<String> employerIdsList;
     private OnHistoryClickListener historyClickListener;
+    private OnJobClickListener jobClickListener;
 
-    public JobListAdapter(Context context, ArrayList<String> jobInfoList, ArrayList<String> employerIdsList, OnHistoryClickListener historyClickListener) {
+    public JobListAdapter(Context context, ArrayList<JobPosting> jobInfoList, ArrayList<String> employerIdsList, OnHistoryClickListener historyClickListener, OnJobClickListener jobClickListener) {
         super(context, R.layout.list_item_job, jobInfoList);
         this.context = context;
         this.jobInfoList = jobInfoList;
         this.employerIdsList = employerIdsList;
         this.historyClickListener = historyClickListener;
+        this.jobClickListener = jobClickListener;
     }
 
     @Override
@@ -33,7 +34,13 @@ public class JobListAdapter extends ArrayAdapter<String> {
         TextView jobInfoTextView = convertView.findViewById(R.id.jobInfoTextView);
         Button historyButton = convertView.findViewById(R.id.historyButton);
 
-        jobInfoTextView.setText(jobInfoList.get(position));
+        jobInfoTextView.setText(jobInfoList.get(position).toString());
+
+        jobInfoTextView.setOnClickListener(view -> {
+            if (jobClickListener != null) {
+                jobClickListener.onJobClick(position);
+            }
+        });
 
         historyButton.setOnClickListener(view -> {
             if (historyClickListener != null) {
@@ -46,5 +53,9 @@ public class JobListAdapter extends ArrayAdapter<String> {
 
     public interface OnHistoryClickListener {
         void onHistoryClick(String employerId);
+    }
+
+    public interface OnJobClickListener {
+        void onJobClick(int position);
     }
 }

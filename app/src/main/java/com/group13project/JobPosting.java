@@ -1,12 +1,13 @@
 package com.group13project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * The `JobPosting` class represents a job posting with its attributes such as job title, description, expected duration, location, urgency, salary, employer ID, and list of applicants' IDs.
  */
-public class JobPosting {
+public class JobPosting implements Serializable {
     private String jobTitle;
     private String jobDescription;
     private String expectedDuration;
@@ -230,5 +231,15 @@ public class JobPosting {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Job Title: " + jobTitle + "\n" +
+                "Urgency: " + urgency + "\n" +
+                "Place: " + place + "\n" +
+                "Expected Duration: " + expectedDuration + "\n" +
+                "Salary: " + salary + "\n" +
+                "Job Description: " + jobDescription;
     }
 }

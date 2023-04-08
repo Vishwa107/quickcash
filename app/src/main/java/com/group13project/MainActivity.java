@@ -7,9 +7,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 /**
  * This activity is the main screen of the app and allows the user to navigate to the sign up or login screens.
  */
@@ -28,18 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(buttonClickListener);
-
-        chkLoginStatus();
-
-    }
-
-    private void chkLoginStatus() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            finish();
-            startActivity(new Intent(MainActivity.this, ChooseViewActivity.class));
-        }
     }
 
     /**

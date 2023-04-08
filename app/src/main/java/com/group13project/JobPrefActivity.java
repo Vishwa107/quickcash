@@ -46,9 +46,9 @@ public class JobPrefActivity extends AppCompatActivity {
     private void init() {
         initVars();
         initUi();
-        enableEdit(false);
+        // enableEdit(false);
         initCallback();
-        getJobPref();
+        // getJobPref();
     }
 
     /**

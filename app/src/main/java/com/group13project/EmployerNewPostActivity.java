@@ -60,6 +60,7 @@ public class EmployerNewPostActivity extends AppCompatActivity {
         postButton= findViewById(R.id.postButton);
         requestQueue=Volley.newRequestQueue(this);
         FirebaseMessaging.getInstance().subscribeToTopic("jobs");
+
     }
 
     private void setListeners(){
@@ -85,6 +86,7 @@ public class EmployerNewPostActivity extends AppCompatActivity {
         urgencyEditText = findViewById(R.id.urgencyEditText);
         salaryEditText = findViewById(R.id.salaryEditText);
         init();
+        setListeners();
 
         // Set click listener for post button
         postButton.setOnClickListener(new View.OnClickListener() {
@@ -127,15 +129,9 @@ private void sendNotification() {
         notiText.put("title", "NEW JOB POSTING AVAILABLE");
         notiText.put("body", "A new job posting has been created. Go check it out!");
 
-        //final JSONObject metadata = new JSONObject();
-        //metadata.put("jobId", "HF-111111");
-        //.put("jobLocation", "Halifax");
-
         final JSONObject notification = new JSONObject();
         notification.put("to", "/topics/jobs");
         notification.put("notification", notiText);
-        //notification.put("data", metadata);
-
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PUSH_NOTIFICATION_ENDPOINT,
                 notification, (Response.Listener<JSONObject>) response -> Toast.makeText(EmployerNewPostActivity.this, "Notification delivered.", Toast.LENGTH_SHORT).show(),
@@ -150,6 +146,7 @@ private void sendNotification() {
         };
 
         requestQueue.add(request);
+
     }catch(JSONException e){
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         e.printStackTrace();
@@ -173,7 +170,7 @@ private void sendNotification() {
                      */
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(EmployerNewPostActivity.this, "Job posting created successfully", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EmployerNewPostActivity.this, "Job posting created successfully", Toast.LENGTH_SHORT).show();
                         sendNotification();
                     }
                 })

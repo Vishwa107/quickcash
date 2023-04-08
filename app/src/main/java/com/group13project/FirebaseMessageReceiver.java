@@ -20,11 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessageReceiver
         extends FirebaseMessagingService {
-
-    private static final String TAG = "Project/";
-
-    private static final String title = "New Job Posting";
-    private static final String message = "A new job posting has been released, check it out!";
+    private final static String jPostingsText="JOB_POSTINGS";
     // Override onNewToken to get new token
     @Override
     public void onNewToken(@NonNull String token)
@@ -48,7 +44,7 @@ public class FirebaseMessageReceiver
         intent.putExtra("body",body);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),10,intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this, "JOB_POSTINGS")
+        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this, jPostingsText)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(com.google.firebase.messaging.R.drawable.notification_icon_background);
@@ -60,7 +56,7 @@ public class FirebaseMessageReceiver
         int id = (int) System.currentTimeMillis();
 
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("JOB_POSTINGS", "JOB_POSTINGS", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel(jPostingsText, jPostingsText, NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
 

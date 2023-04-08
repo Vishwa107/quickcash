@@ -29,8 +29,6 @@ public class ViewNotificationActivity extends AppCompatActivity {
         final Bundle extras = getIntent().getExtras();
         final String title = extras.getString("title");
         final String body = extras.getString("body");
-        final String jobId = extras.getString("jobId");
-        final String jobLocation = extras.getString("jobLocation");
 
         nTitle.setText(title);
         nBody.setText(body);

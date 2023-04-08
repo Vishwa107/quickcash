@@ -1,0 +1,20 @@
+
+b
+java:S1192”"FDefine a constant instead of duplicating this literal "empty" 8 times.(‹½µµûÿÿÿÿ
+d
+java:S1192˜"HDefine a constant instead of duplicating this literal "invalid" 4 times.(îÜª þÿÿÿÿ
+C
+java:S1604]"(Make this anonymous inner class a lambda(Ÿ—ÙÎÿÿÿÿÿ
+C
+java:S1604j"(Make this anonymous inner class a lambda(„¬é¿øÿÿÿÿ
+>
+java:S1604U"(Make this anonymous inner class a lambda(³Ö×•
+`
+java:S1659""EDeclare "lastName" and all following declarations on a separate line.(Ã¯ßÔøÿÿÿÿ
+p
+java:S1450%"[Remove the "signupButton" field and declare it as a local variable in the relevant methods.(õðÝ
+Q	java:S125r"<This block of commented-out lines of code should be removed.(õ›ˆö
+X
+java:S6353ã"<Use concise character class syntax '\\d' instead of '[0-9]'.(£Ðå´ýÿÿÿÿ
+X
+java:S6353ã"<Use concise character class syntax '\\d' instead of '[0-9]'.(£Ðå´ýÿÿÿÿ

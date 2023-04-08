@@ -43,7 +43,7 @@ public class FirebaseMessageReceiver
         final String title = remoteMessage.getNotification().getTitle();
         final String body = remoteMessage.getNotification().getBody();
 
-        Intent intent = new Intent (this, EmployerNewPostActivity.class);
+        Intent intent = new Intent (this, EmployerPostedJobs.class);
         intent.putExtra("title",title);
         intent.putExtra("body",body);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),10,intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);

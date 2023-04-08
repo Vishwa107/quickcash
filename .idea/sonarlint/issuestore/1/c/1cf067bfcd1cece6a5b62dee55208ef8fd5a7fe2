@@ -1,0 +1,11 @@
+
+p
+java:S1104"UMake firstName a static final constant or non-public and provide accessors if needed.(Ò±ÔÍùÿÿÿÿ
+o
+java:S1104"TMake lastName a static final constant or non-public and provide accessors if needed.(Ò±ÔÍùÿÿÿÿ
+s
+java:S1104"XMake emailAddress a static final constant or non-public and provide accessors if needed.(Ò±ÔÍùÿÿÿÿ
+r
+java:S1104"WMake phoneNumber a static final constant or non-public and provide accessors if needed.(Ò±ÔÍùÿÿÿÿ
+`
+java:S1659"EDeclare "lastName" and all following declarations on a separate line.(Ò±ÔÍùÿÿÿÿ

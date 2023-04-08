@@ -1,6 +1,5 @@
 package com.group13project;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -14,8 +13,8 @@ public class JobDescription extends AppCompatActivity {
         setContentView(R.layout.activity_job_description);
         setTitle("Description");
 
-        JobPosting clicked = getIntent().getExtras().getParcelable("JobClicked");
-        TextView clickedJob = (TextView)findViewById(R.id.clickedJob);
-        clickedJob.setText(clicked.toString());
+        JobPosting clickedJob = (JobPosting) getIntent().getSerializableExtra("JobClicked");
+        TextView jobDescriptionTextView = (TextView) findViewById(R.id.clickedJob);
+        jobDescriptionTextView.setText(clickedJob.toString());
     }
 }

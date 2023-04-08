@@ -66,6 +66,15 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
                 startActivity(new Intent(ChooseViewActivity.this,EmployeeHomeActivity.class));
             }
         });
+
+        Button my_profile_view = (Button) findViewById(R.id.myProfile_view);
+
+        my_profile_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChooseViewActivity.this,ProfilePage.class));
+            }
+        });
     }
 
     private void requestPermissionsIfNeeded() {

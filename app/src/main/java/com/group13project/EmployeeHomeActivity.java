@@ -80,7 +80,6 @@ public class EmployeeHomeActivity extends AppCompatActivity{
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
                         JobPosting clickedJob = (JobPosting) jobsList.get(i);
-                        Toast.makeText(EmployeeHomeActivity.this, clickedJob.getJobTitle(), Toast.LENGTH_LONG).show();
                         jobDescription.putExtra("JobClicked",clickedJob);
                         startActivity(jobDescription);
                     }

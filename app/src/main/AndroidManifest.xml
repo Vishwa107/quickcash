@@ -64,7 +64,7 @@
         <activity android:name=".EmployerProfile" />
         <activity android:name=".EmployerPostedJobs" />
         <activity android:name=".ChooseViewActivity" />
-        <activity android:name=".UserHistoryActivity"/>
+        <activity android:name=".EmployerHistoryActivity"/>
 
 
     </application>

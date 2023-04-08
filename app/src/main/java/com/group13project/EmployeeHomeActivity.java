@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,34 +61,31 @@ public class EmployeeHomeActivity extends AppCompatActivity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jobsList.clear();
-                employerIdsList.clear(); // Add this line to clear the list when onDataChange is called
+                employerIdsList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                     if (jobPosting != null) {
-                        String employerId = jobPosting.getEmployerId(); // get the employerId of the current job posting
-                        employerIdsList.add(employerId); // Add this line to store the employerId in the list
+                        String employerId = jobPosting.getEmployerId();
+                        employerIdsList.add(employerId);
                         String jobInfo = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
                         jobsList.add(jobInfo);
                     }
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
-                jobsListView.setAdapter(adapter);
-
-                // Set the click listener here, outside the loop
-                jobsListView.setOnItemClickListener((parent, view, position, id) -> {
-                    String selectedEmployerId = employerIdsList.get(position); // Get the employerId corresponding to the clicked item
-                    Intent intent = new Intent(EmployeeHomeActivity.this, UserHistoryActivity.class);
-                    intent.putExtra("selectedUserId", selectedEmployerId);
+                JobListAdapter adapter = new JobListAdapter(EmployeeHomeActivity.this, jobsList, employerIdsList, employerId -> {
+                    Intent intent = new Intent(EmployeeHomeActivity.this, EmployerHistoryActivity.class);
+                    intent.putExtra("selectedUserId", employerId);
                     startActivity(intent);
                 });
+                jobsListView.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                         Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(EmployeeHomeActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     /**
      * This method searches the job postings that were loaded from the database for any matches with the given search query.

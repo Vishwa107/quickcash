@@ -1,7 +1,5 @@
 package com.group13project;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -15,11 +13,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
-public class UserHistoryActivityTest {
+public class EmployerHistoryActivityTest {
 
     @Rule
-    public ActivityScenarioRule<UserHistoryActivity> activityRule =
-            new ActivityScenarioRule<>(UserHistoryActivity.class);
+    public ActivityScenarioRule<EmployerHistoryActivity> activityRule =
+            new ActivityScenarioRule<>(EmployerHistoryActivity.class);
 
     @Test
     public void testUserHistoryActivityTitleDisplayed() {

@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserHistoryActivity extends AppCompatActivity {
+public class EmployerHistoryActivity extends AppCompatActivity {
 
     private ListView listView;
     private ArrayAdapter<String> adapter;

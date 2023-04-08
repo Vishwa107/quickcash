@@ -3,9 +3,8 @@ package com.group13project;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +57,12 @@ public class EmployeeHomeActivity extends AppCompatActivity {
     ArrayList<JobPosting> allJobs;
     ArrayList<JobPosting> jobPostingFilteredArrayList;
 
+    /**
+     * Sets up the activity when it is first created. This method initializes the UI elements
+     * and sets up the job list view.
+     *
+     * @param savedInstanceState the saved instance state of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,7 +211,6 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     break;
             }
         }
-        ArrayAdapter<JobPosting> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
-        jobsListView.setAdapter(adapter);
-    }
+    };
+
 }

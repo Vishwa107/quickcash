@@ -35,7 +35,6 @@ public class EmployerHomeActivity extends AppCompatActivity {
         postedJob = findViewById(R.id.postedJobs);
         postedJob.setOnClickListener(buttonClickListener);
 
-
     }
 
 

@@ -13,7 +13,7 @@ public class JobDescription extends AppCompatActivity {
         setContentView(R.layout.activity_job_description);
         setTitle("Description");
 
-        JobPosting clickedJob = (JobPosting) getIntent().getSerializableExtra("JobClicked");
+        JobPosting clickedJob = (JobPosting) getIntent().getParcelableExtra("JobClicked");
         TextView jobDescriptionTextView = (TextView) findViewById(R.id.clickedJob);
         jobDescriptionTextView.setText(clickedJob.toString());
     }

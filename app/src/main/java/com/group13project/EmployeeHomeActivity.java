@@ -2,6 +2,7 @@ package com.group13project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -9,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,14 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * EmployeeHomeActivity class is the main activity class for the employee dashboard.
- * This class displays a list of job postings and provides the functionality for
- * employees to navigate to the employer dashboard or log out of the application.
- */
-public class EmployeeHomeActivity extends AppCompatActivity{
+public class EmployeeHomeActivity extends AppCompatActivity {
 
-    ArrayList<String> jobsList = new ArrayList<>();
+    ArrayList<JobPosting> jobsList = new ArrayList<>();
+    ArrayList<String> employerIdsList = new ArrayList<>();
     DatabaseReference databaseReference;
     ListView jobsListView;
     EditText searchBox;
@@ -49,26 +44,35 @@ public class EmployeeHomeActivity extends AppCompatActivity{
             searchJobPostings(searchQuery);
         });
 
-        // Load all job postings initially
         loadAllJobPostings();
     }
 
-    /**
-     * This method loads and displays all the job postings in the Realtime database when the activity starts.
-     */
     private void loadAllJobPostings() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 jobsList.clear();
+                employerIdsList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                     if (jobPosting != null) {
-                        final String jobInfo = jobPosting.getJobTitle() + "\nUrgency:" + jobPosting.getUrgency() + "\n" + jobPosting.getPlace() + "\n" + jobPosting.getExpectedDuration() + "\nSalary: " + jobPosting.getSalary() + "\n" + jobPosting.getJobDescription() + "\n\n";
-                        jobsList.add(jobInfo);
+                        String employerId = jobPosting.getEmployerId();
+                        employerIdsList.add(employerId);
+                        jobsList.add(jobPosting);
                     }
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
+                JobListAdapter adapter = new JobListAdapter(EmployeeHomeActivity.this, jobsList, employerIdsList,
+                        employerId -> {
+                            Intent intent = new Intent(EmployeeHomeActivity.this, EmployerHistoryActivity.class);
+                            intent.putExtra("selectedUserId", employerId);
+                            startActivity(intent);
+                        },
+                        position -> {
+                            Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
+                            JobPosting clickedJob = jobsList.get(position);
+                            jobDescription.putExtra("JobClicked", clickedJob);
+                            startActivity(jobDescription);
+                        });
                 jobsListView.setAdapter(adapter);
             }
 
@@ -79,22 +83,15 @@ public class EmployeeHomeActivity extends AppCompatActivity{
         });
     }
 
-    /**
-     * This method searches the job postings that were loaded from the database for any matches with the given search query.
-     * @param searchQuery a string to search the for matches with the job postings.
-     */
     private void searchJobPostings(String searchQuery) {
         searchQuery = searchQuery.toLowerCase();
-        ArrayList<String> filteredJobsList = new ArrayList<>();
-        for (String jobInfo : jobsList) {
-            if (jobInfo.toLowerCase().contains(searchQuery)) {
+        ArrayList<JobPosting> filteredJobsList = new ArrayList<>();
+        for (JobPosting jobInfo : jobsList) {
+            if (jobInfo.toString().toLowerCase().contains(searchQuery)) {
                 filteredJobsList.add(jobInfo);
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
+        ArrayAdapter<JobPosting> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
         jobsListView.setAdapter(adapter);
     }
-
-
-
 }

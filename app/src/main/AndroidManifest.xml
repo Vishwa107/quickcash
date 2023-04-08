@@ -64,6 +64,10 @@
         <activity android:name=".ProfilePage" />
         <activity android:name=".EmployerPostedJobs" />
         <activity android:name=".ChooseViewActivity" />
+        <activity android:name=".EmployerHistoryActivity"/>
+        <activity android:name=".JobDescription" />
+
+
 
     </application>
 

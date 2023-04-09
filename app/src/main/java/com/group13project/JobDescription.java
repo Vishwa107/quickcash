@@ -31,6 +31,7 @@ public class JobDescription extends AppCompatActivity {
     private String employeeId;
     private String employerId;
     Button applyButton;
+    Button employerHistoryButton;
     Context context;
 
     @Override
@@ -99,6 +100,17 @@ public class JobDescription extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        employerHistoryButton = findViewById(R.id.employerHistoryButton);
+        employerHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(JobDescription.this, EmployerHistoryActivity.class);
+                intent.putExtra("selectedUserId", clicked.getEmployerId());
+                startActivity(intent);
+            }
+        });
+
 
     }
 

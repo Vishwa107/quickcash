@@ -32,6 +32,9 @@ android {
         viewBinding true
     }
 }
+ext {
+    gsonVer = "2.1.0"
+}
 
 dependencies {
 
@@ -45,6 +48,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
+    //paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
+    implementation "com.squareup.retrofit2:converter-gson:${gsonVer}"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

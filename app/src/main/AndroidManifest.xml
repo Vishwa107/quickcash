@@ -68,7 +68,9 @@
         <activity android:name=".EmployerPostedJobs" />
         <activity android:name=".ChooseViewActivity" />
         <activity android:name=".JobDescription" />
+        <activity android:name=".EmployerMakePayment"/>
         <activity android:name=".EmployerHistoryActivity" />
+
 
 
     </application>

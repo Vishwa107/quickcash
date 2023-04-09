@@ -6,6 +6,8 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import android.content.Intent;
+
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -37,5 +39,11 @@ public class EmployerHomepageTest {
         Intents.release();
     }
 
-
+    @Test
+    public void testMyProfileButton() {
+        Intents.init();
+        onView(withId(R.id.profile)).perform(click());
+        intended(hasComponent(EmployerProfile.class.getName()));
+        Intents.release();
+    }
 }

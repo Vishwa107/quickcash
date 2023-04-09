@@ -260,7 +260,7 @@ public class JobPosting implements Parcelable {
     }
 
     public String toString(){
-        return this.getJobTitle() + " " + this.getUrgency() + " " + this.getPlace() + " " + this.getExpectedDuration() + " " + this.getSalary() + "" + this.getJobDescription();
+        return "JobTitle: "+ this.getJobTitle() + "\nUrgency: " + this.getUrgency() + "\nPlace: " + this.getPlace() + "\nExpected Duration: " + this.getExpectedDuration() + "\nSalary: " + this.getSalary() + "\nJob Description: " + this.getJobDescription();
     }
 
     @Override

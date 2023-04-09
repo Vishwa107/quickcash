@@ -46,8 +46,9 @@ public class ChooseViewActivityTest {
     @Test
     public void checkSwitchingToProfilePageOnButtonClick(){
         onView(withId(R.id.myProfile_view)).perform(click());
-        intended(hasComponent(ProfilePage.class.getName()));
+        intended(hasComponent(EmployerProfile.class.getName()));
 
     }
+
 
 }

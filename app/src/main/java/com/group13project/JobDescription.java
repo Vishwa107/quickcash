@@ -113,15 +113,19 @@ public class JobDescription extends AppCompatActivity {
         applications.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean exists = false;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     JobApplication tempApplication = snapshot.getValue(JobApplication.class);
-                    if (tempApplication != null && tempApplication.getEmployeeID().equals(employeeId) && tempApplication.getJobPostingID().equals(jobPostingId)){
+                    if (tempApplication != null && tempApplication.getEmployeeID().equals(application.getEmployeeID()) && tempApplication.getJobPostingID().equals(application.getJobPostingID()) && tempApplication.getEmployerID().equals(application.getEmployerID())){
                         Toast.makeText(JobDescription.this, "Your have already applied for this job.", Toast.LENGTH_SHORT).show();
                         applyButton.setText("Application Sent");
                         applyButton.setClickable(false);
-                    }else{
-                        applyForJob(application);
+                        exists = true;
+                        break;
                     }
+                }
+                if(!exists){
+                    applyForJob(application);
                 }
             }
 

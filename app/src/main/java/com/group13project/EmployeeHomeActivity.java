@@ -85,7 +85,6 @@ public class EmployeeHomeActivity extends AppCompatActivity{
                         startActivity(jobDescription);
                     }
                 });
-
             }
 
             @Override

@@ -30,6 +30,12 @@
             android:layout_height="wrap_content"
             android:text="My Jobs" />
 
+        <Button
+            android:id="@+id/makePayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make Payment" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,17 @@
 package com.group13project;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * The `JobPosting` class represents a job posting with its attributes such as job title, description, expected duration, location, urgency, salary, employer ID, and list of applicants' IDs.
  */
-public class JobPosting implements Serializable {
+public class JobPosting implements Parcelable {
     private String jobTitle;
     private String jobDescription;
     private String expectedDuration;
@@ -22,7 +26,6 @@ public class JobPosting implements Serializable {
      * Initializes an empty `JobPosting` instance with default attribute values.
      */
     public  JobPosting(){}
-
 
     /**
      * Initializes a `JobPosting` instance with the given attribute values.
@@ -45,6 +48,29 @@ public class JobPosting implements Serializable {
         this.employerId = employerId;
         this.applicantsIds = new ArrayList<>();
     }
+
+    protected JobPosting(Parcel in) {
+        jobTitle = in.readString();
+        jobDescription = in.readString();
+        expectedDuration = in.readString();
+        place = in.readString();
+        urgency = in.readString();
+        salary = in.readString();
+        employerId = in.readString();
+        applicantsIds = in.createStringArrayList();
+    }
+
+    public static final Creator<JobPosting> CREATOR = new Creator<JobPosting>() {
+        @Override
+        public JobPosting createFromParcel(Parcel in) {
+            return new JobPosting(in);
+        }
+
+        @Override
+        public JobPosting[] newArray(int size) {
+            return new JobPosting[size];
+        }
+    };
 
     /**
      * Returns the title of the job.
@@ -233,13 +259,24 @@ public class JobPosting implements Serializable {
         return true;
     }
 
+    public String toString(){
+        return this.getJobTitle() + " " + this.getUrgency() + " " + this.getPlace() + " " + this.getExpectedDuration() + " " + this.getSalary() + "" + this.getJobDescription();
+    }
+
     @Override
-    public String toString() {
-        return "Job Title: " + jobTitle + "\n" +
-                "Urgency: " + urgency + "\n" +
-                "Place: " + place + "\n" +
-                "Expected Duration: " + expectedDuration + "\n" +
-                "Salary: " + salary + "\n" +
-                "Job Description: " + jobDescription;
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(jobTitle);
+        parcel.writeString(jobDescription);
+        parcel.writeString(expectedDuration);
+        parcel.writeString(place);
+        parcel.writeString(urgency);
+        parcel.writeString(salary);
+        parcel.writeString(employerId);
+        parcel.writeString(String.valueOf(applicantsIds));
     }
 }

@@ -61,13 +61,10 @@
         <activity android:name=".SignupPageActivity" />
         <activity android:name=".LoginPageActivity" />
         <activity android:name=".EmployerNewPostActivity" />
-        <activity android:name=".ProfilePage" />
+        <activity android:name=".EmployerProfile" />
         <activity android:name=".EmployerPostedJobs" />
         <activity android:name=".ChooseViewActivity" />
-        <activity android:name=".EmployerHistoryActivity"/>
         <activity android:name=".JobDescription" />
-
-
 
     </application>
 

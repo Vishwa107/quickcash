@@ -35,7 +35,8 @@ public class EmployerHomeActivity extends AppCompatActivity {
         postedJob = findViewById(R.id.postedJobs);
         postedJob.setOnClickListener(buttonClickListener);
 
-
+        profile = findViewById(R.id.profile);
+        profile.setOnClickListener(buttonClickListener);
     }
 
 
@@ -56,7 +57,10 @@ public class EmployerHomeActivity extends AppCompatActivity {
                     Intent postedJobsActivity = new Intent(EmployerHomeActivity.this, EmployerPostedJobs.class);
                     startActivity(postedJobsActivity);
                     break;
-
+                case R.id.profile:
+                    Intent profileActivity = new Intent(EmployerHomeActivity.this, EmployerProfile.class);
+                    startActivity(profileActivity);
+                    break;
                 default:
                     break;
             }

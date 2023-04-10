@@ -52,20 +52,15 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
         requestPermissionsIfNeeded();
 
         Button employerView=(Button) findViewById(R.id.employer_view);
-        employerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ChooseViewActivity.this,EmployerHomeActivity.class));
-            }
-        });
+        employerView.setOnClickListener(view -> startActivity(new Intent(ChooseViewActivity.this,EmployerHomeActivity.class)));
 
         Button employeeView=(Button) findViewById(R.id.employee_view);
-        employeeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ChooseViewActivity.this,EmployeeHomeActivity.class));
-            }
-        });
+        employeeView.setOnClickListener(view -> startActivity(new Intent(ChooseViewActivity.this,EmployeeHomeActivity.class)));
+
+
+        Button my_profile_view = (Button) findViewById(R.id.myProfile_view);
+
+        my_profile_view.setOnClickListener(view -> startActivity(new Intent(ChooseViewActivity.this,EmployerProfile.class)));
     }
 
     private void requestPermissionsIfNeeded() {
@@ -121,11 +116,9 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("GPS is disabled. Do you want to enable it?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(intent);
-                        }
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
                     })
                     .setNegativeButton("No", (dialog, id) -> dialog.cancel());
             AlertDialog alert = builder.create();
@@ -137,7 +130,7 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
     private void getLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5F, (LocationListener) this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5F, this);
         } else {
             Toast.makeText(this, "Please enable GPS", Toast.LENGTH_SHORT).show();
         }
@@ -195,6 +188,7 @@ public class ChooseViewActivity extends AppCompatActivity implements LocationLis
      * @param status the status code for the provider
      * @param extras additional provider-specific information
      */
+    @Override
     @Deprecated
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // Method empty because function not implemented yet

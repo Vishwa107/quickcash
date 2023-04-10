@@ -30,7 +30,11 @@ public class EmployerProfile extends AppCompatActivity {
         setContentView(R.layout.activity_employer_profile);
         setTitle(R.string.employer_profile);
 
-        TextView details = (TextView)findViewById(R.id.empDetails);
+        TextView empName = (TextView)findViewById(R.id.empName);
+        TextView empFirstName = (TextView)findViewById(R.id.empFirstName);
+        TextView empLastName = (TextView)findViewById(R.id.empLastName);
+        TextView empEmail = (TextView)findViewById(R.id.empEmail);
+        TextView empPhone = (TextView)findViewById(R.id.empPhone);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -43,15 +47,18 @@ public class EmployerProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User current = snapshot.getValue(User.class);
                 if (current != null && current.firstName!= null) {
-                    String neww = current.firstName + "\n" + current.lastName + "\n" + current.phoneNumber + "\n" + current.emailAddress;
-                    details.setText(neww);
+                    empName.setText(current.firstName.toUpperCase() + " " + current.lastName.toUpperCase());
+                    empFirstName.setText(current.firstName.toUpperCase());
+                    empLastName.setText(current.lastName.toUpperCase());
+                    empPhone.setText(current.phoneNumber);
+                    empEmail.setText(current.emailAddress);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 final String errorRead = error.getMessage();
-                details.setText(errorRead);
+                empName.setText(errorRead);
             }
         });
 

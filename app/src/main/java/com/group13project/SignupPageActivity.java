@@ -29,13 +29,18 @@ public class SignupPageActivity extends Activity implements View.OnClickListener
     private FirebaseAuth mAuth;
 
     // declaring input fields
-    private EditText firstName, lastName, emailAddress, phoneNumber, password, passwordConfirm;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText emailAddress;
+    private EditText phoneNumber;
+    private EditText password;
+    private EditText passwordConfirm;
 
-    // declaring signup button
-    private Button signupButton;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
+        Button signupButton;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
 

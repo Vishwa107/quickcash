@@ -31,10 +31,17 @@
             android:text="My Jobs" />
 
         <Button
-            android:id="@+id/profile"
+            android:id="@+id/makePayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Profile" />
+            android:text="Make Payment" />
+
+
+        <Button
+            android:id="@+id/applications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Applications" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

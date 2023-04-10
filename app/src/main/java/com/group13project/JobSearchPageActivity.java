@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The `JobSearchPageActivity` class is responsible for displaying the list of job postings to the user.
@@ -57,30 +58,27 @@ public class JobSearchPageActivity extends AppCompatActivity {
      *
      * @param jobPostingArrayList The array list to fill with job postings data.
      */
-    public void fillArray(ArrayList<JobPosting> jobPostingArrayList){
+    public void fillArray(List<JobPosting> jobPostingArrayList){
         //need implementation
     }
 
-    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // checking which button is clicked, then redirecting accordingly
-            switch (v.getId()) {
-                case R.id.employeePage:
-                    Intent employeePageIntent = new Intent(JobSearchPageActivity.this, EmployeeHomeActivity.class);
-                    startActivity(employeePageIntent);
-                    break;
-                case R.id.employerPage:
-                    Intent employerPageIntent = new Intent(JobSearchPageActivity.this, EmployerHomeActivity.class);
-                    startActivity(employerPageIntent);
-                    break;
-                case R.id.logout:
-                    Intent loginIntent = new Intent(JobSearchPageActivity.this, LoginPageActivity.class);
-                    startActivity(loginIntent);
-                    break;
-                default:
-                    break;
-            }
+    private View.OnClickListener buttonClickListener = v -> {
+        // checking which button is clicked, then redirecting accordingly
+        switch (v.getId()) {
+            case R.id.employeePage:
+                Intent employeePageIntent = new Intent(JobSearchPageActivity.this, EmployeeHomeActivity.class);
+                startActivity(employeePageIntent);
+                break;
+            case R.id.employerPage:
+                Intent employerPageIntent = new Intent(JobSearchPageActivity.this, EmployerHomeActivity.class);
+                startActivity(employerPageIntent);
+                break;
+            case R.id.logout:
+                Intent loginIntent = new Intent(JobSearchPageActivity.this, LoginPageActivity.class);
+                startActivity(loginIntent);
+                break;
+            default:
+                break;
         }
     };
 }

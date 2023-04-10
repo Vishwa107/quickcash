@@ -11,6 +11,7 @@
         android:layout_height="65dp"
         android:background="#7243C4"
         android:text="Employee View"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
@@ -25,9 +26,25 @@
         android:background="#703FC8"
         android:shadowColor="#673AB7"
         android:text="Employer View"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
+
+    <Button
+        android:id="@+id/myProfile_view"
+        android:layout_width="125dp"
+        android:layout_height="72dp"
+        android:background="#703FC8"
+        android:shadowColor="#673AB7"
+        android:text="My Profile"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/employee_view"
+        app:layout_constraintStart_toStartOf="@+id/employee_view"
+        app:layout_constraintTop_toBottomOf="@+id/employee_view" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

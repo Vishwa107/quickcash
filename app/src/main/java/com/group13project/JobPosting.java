@@ -1,12 +1,18 @@
 package com.group13project;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * The `JobPosting` class represents a job posting with its attributes such as job title, description, expected duration, location, urgency, salary, employer ID, and list of applicants' IDs.
  */
-public class JobPosting {
+public class JobPosting implements Parcelable {
     private String jobTitle;
     private String jobDescription;
     private String expectedDuration;
@@ -21,7 +27,6 @@ public class JobPosting {
      * Initializes an empty `JobPosting` instance with default attribute values.
      */
     public  JobPosting(){}
-
 
     /**
      * Initializes a `JobPosting` instance with the given attribute values.
@@ -44,6 +49,29 @@ public class JobPosting {
         this.employerId = employerId;
         this.applicantsIds = new ArrayList<>();
     }
+
+    protected JobPosting(Parcel in) {
+        jobTitle = in.readString();
+        jobDescription = in.readString();
+        expectedDuration = in.readString();
+        place = in.readString();
+        urgency = in.readString();
+        salary = in.readString();
+        employerId = in.readString();
+        applicantsIds = in.createStringArrayList();
+    }
+
+    public static final Creator<JobPosting> CREATOR = new Creator<JobPosting>() {
+        @Override
+        public JobPosting createFromParcel(Parcel in) {
+            return new JobPosting(in);
+        }
+
+        @Override
+        public JobPosting[] newArray(int size) {
+            return new JobPosting[size];
+        }
+    };
 
     /**
      * Returns the title of the job.
@@ -176,7 +204,7 @@ public class JobPosting {
      *
      * @return The list of applicant IDs for the job.
      */
-    public ArrayList<String> getApplicantsIds() {
+    public List<String> getApplicantsIds() {
         return applicantsIds;
     }
 
@@ -226,9 +254,27 @@ public class JobPosting {
         if (!Objects.equals(this.employerId, other.employerId)) {
             return false;
         }
-        if (!Objects.equals(this.applicantsIds, other.applicantsIds)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.applicantsIds, other.applicantsIds);
+    }
+
+    public String toString(){
+        return "JobTitle: "+ this.getJobTitle() + "\nUrgency: " + this.getUrgency() + "\nPlace: " + this.getPlace() + "\nExpected Duration: " + this.getExpectedDuration() + "\nSalary: " + this.getSalary() + "\nJob Description: " + this.getJobDescription();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(jobTitle);
+        parcel.writeString(jobDescription);
+        parcel.writeString(expectedDuration);
+        parcel.writeString(place);
+        parcel.writeString(urgency);
+        parcel.writeString(salary);
+        parcel.writeString(employerId);
+        parcel.writeString(String.valueOf(applicantsIds));
     }
 }

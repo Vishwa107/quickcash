@@ -15,6 +15,8 @@ public class EmployerHomeActivity extends AppCompatActivity {
     Button newJob;
     Button postedJob;
     Button profile;
+    Button applications;
+    Button makePayment;
 
 
     /**
@@ -35,8 +37,10 @@ public class EmployerHomeActivity extends AppCompatActivity {
         postedJob = findViewById(R.id.postedJobs);
         postedJob.setOnClickListener(buttonClickListener);
 
-        profile = findViewById(R.id.profile);
-        profile.setOnClickListener(buttonClickListener);
+        applications = findViewById(R.id.applications);
+        applications.setOnClickListener(buttonClickListener);
+        makePayment = findViewById(R.id.makePayment);
+        makePayment.setOnClickListener(buttonClickListener);
     }
 
 
@@ -57,9 +61,14 @@ public class EmployerHomeActivity extends AppCompatActivity {
                     Intent postedJobsActivity = new Intent(EmployerHomeActivity.this, EmployerPostedJobs.class);
                     startActivity(postedJobsActivity);
                     break;
-                case R.id.profile:
-                    Intent profileActivity = new Intent(EmployerHomeActivity.this, EmployerProfile.class);
-                    startActivity(profileActivity);
+                case R.id.makePayment:
+                    Intent makePaymentactivity = new Intent(EmployerHomeActivity.this, EmployerMakePayment.class);
+                    startActivity(makePaymentactivity);
+                    break;
+
+                case R.id.applications:
+                    Intent applicationsActivity = new Intent(EmployerHomeActivity.this, ApplicationsActivity.class);
+                    startActivity(applicationsActivity);
                     break;
                 default:
                     break;

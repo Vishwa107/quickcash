@@ -18,11 +18,10 @@ import com.group13project.databinding.ActivityMapsBinding;
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private ActivityMapsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityMapsBinding binding;
         super.onCreate(savedInstanceState);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
@@ -47,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        GoogleMap mMap;
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera

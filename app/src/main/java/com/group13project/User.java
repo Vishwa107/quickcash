@@ -4,7 +4,10 @@ package com.group13project;
  * information such as the user's first and last name, email address, and phone number.
  */
 public class User {
-    public String firstName, lastName, emailAddress, phoneNumber;
+    public String firstName;
+    public String lastName;
+    public String emailAddress;
+    public String phoneNumber;
 
 
     /**

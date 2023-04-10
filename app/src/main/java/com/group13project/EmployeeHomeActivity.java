@@ -79,15 +79,12 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                 ArrayAdapter<JobPosting> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
                 jobsListView.setAdapter(adapter);
 
-                jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
-                        JobPosting clickedJob = (JobPosting) jobsList.get(i);
-                        Toast.makeText(EmployeeHomeActivity.this, clickedJob.getJobTitle(), Toast.LENGTH_LONG).show();
-                        jobDescription.putExtra("JobClicked", clickedJob);
-                        startActivity(jobDescription);
-                    }
+                jobsListView.setOnItemClickListener((adapterView, view, i, l) -> {
+                    Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
+                    JobPosting clickedJob = (JobPosting) jobsList.get(i);
+                    Toast.makeText(EmployeeHomeActivity.this, clickedJob.getJobTitle(), Toast.LENGTH_LONG).show();
+                    jobDescription.putExtra("JobClicked", clickedJob);
+                    startActivity(jobDescription);
                 });
             }
 

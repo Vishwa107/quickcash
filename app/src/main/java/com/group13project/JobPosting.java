@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -203,7 +204,7 @@ public class JobPosting implements Parcelable {
      *
      * @return The list of applicant IDs for the job.
      */
-    public ArrayList<String> getApplicantsIds() {
+    public List<String> getApplicantsIds() {
         return applicantsIds;
     }
 
@@ -253,10 +254,7 @@ public class JobPosting implements Parcelable {
         if (!Objects.equals(this.employerId, other.employerId)) {
             return false;
         }
-        if (!Objects.equals(this.applicantsIds, other.applicantsIds)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.applicantsIds, other.applicantsIds);
     }
 
     public String toString(){

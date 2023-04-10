@@ -121,10 +121,9 @@ public class RecommendedJobsActivity extends AppCompatActivity {
                     allJobs = new ArrayList<>();
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         JobPosting tempData = postSnapshot.getValue(JobPosting.class);
-                        if (tempData != null) {
-                            if (!allJobs.contains(tempData)) {
+                        if (tempData != null && (!allJobs.contains(tempData))) {
                                 allJobs.add(tempData);
-                            }
+
                         }
                     }
                     filterJobs();

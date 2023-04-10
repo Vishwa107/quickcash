@@ -32,7 +32,6 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
     private EditText password;
 
     // declaring login button
-    private Button logInButton;
 
 
     /**
@@ -43,6 +42,7 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
      */
     @Override
     protected void onCreate( Bundle savedInstanceState) {
+        Button logInButton;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
 
@@ -78,16 +78,13 @@ public class LoginPageActivity extends Activity implements View.OnClickListener 
         }
 
         // calling Firebase authentication to log the user in
-        mAuth.signInWithEmailAndPassword(emailId,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    //redirect to user profile or home page for employee or employer
-                    startActivity(new Intent(LoginPageActivity.this,ChooseViewActivity.class));
+        mAuth.signInWithEmailAndPassword(emailId,pass).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                //redirect to user profile or home page for employee or employer
+                startActivity(new Intent(LoginPageActivity.this,ChooseViewActivity.class));
 
-                }else{
-                    Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your credentials.",Toast.LENGTH_LONG).show();
-                }
+            }else{
+                Toast.makeText(LoginPageActivity.this,"Failed to login! Please check your credentials.",Toast.LENGTH_LONG).show();
             }
         });
     }

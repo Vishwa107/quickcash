@@ -24,7 +24,9 @@ public class JobPrefActivity extends AppCompatActivity {
 
     private final String PREFS = "Prefs";
 
-    private EditText duration, location, salary;
+    private EditText duration;
+    private EditText location;
+    private EditText salary;
     private Button savePref;
 
     private JobPref jobPref;

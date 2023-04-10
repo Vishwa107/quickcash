@@ -40,10 +40,10 @@ public class EmployerHomepageTest {
     }
 
     @Test
-    public void testMyProfileButton() {
+    public void testApplicationsButton() {
         Intents.init();
-        onView(withId(R.id.profile)).perform(click());
-        intended(hasComponent(EmployerProfile.class.getName()));
+        onView(withId(R.id.applications)).perform(click());
+        intended(hasComponent(ApplicationsActivity.class.getName()));
         Intents.release();
     }
 }

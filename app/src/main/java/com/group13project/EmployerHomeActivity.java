@@ -37,9 +37,6 @@ public class EmployerHomeActivity extends AppCompatActivity {
         postedJob = findViewById(R.id.postedJobs);
         postedJob.setOnClickListener(buttonClickListener);
 
-        profile = findViewById(R.id.profile);
-        profile.setOnClickListener(buttonClickListener);
-
         applications = findViewById(R.id.applications);
         applications.setOnClickListener(buttonClickListener);
         makePayment = findViewById(R.id.makePayment);

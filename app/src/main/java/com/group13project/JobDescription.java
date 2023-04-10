@@ -31,6 +31,7 @@ public class JobDescription extends AppCompatActivity {
     private String employeeId;
     private String employerId;
     Button applyButton;
+    Button employerHistoryButton;
     Context context;
 
     @Override
@@ -69,36 +70,44 @@ public class JobDescription extends AppCompatActivity {
         });
 
         applyButton = findViewById(R.id.applyButton);
-        applyButton.setOnClickListener(new View.OnClickListener() {
+        applyButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Confirm Application");
+            builder.setMessage("Are you sure you want to apply for this job?");
+
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    employeeId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    employerId = clicked.getEmployerId();
+
+                    JobApplication application = new JobApplication(jobPostingId, employeeId, employerId);
+
+                    checkExistingApplication(application);
+                }
+            });
+
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        employerHistoryButton = findViewById(R.id.employerHistoryButton);
+        employerHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Confirm Application");
-                builder.setMessage("Are you sure you want to apply for this job?");
-
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        employeeId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        employerId = clicked.getEmployerId();
-
-                        JobApplication application = new JobApplication(jobPostingId, employeeId, employerId);
-
-                        checkExistingApplication(application);
-                    }
-                });
-
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Intent intent = new Intent(JobDescription.this, EmployerHistoryActivity.class);
+                intent.putExtra("selectedUserId", clicked.getEmployerId());
+                startActivity(intent);
             }
         });
+
 
     }
 

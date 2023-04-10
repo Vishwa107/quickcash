@@ -1,7 +1,5 @@
 package com.group13project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +10,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,13 +26,15 @@ import java.util.ArrayList;
  * This class displays a list of job postings and provides the functionality for
  * employees to navigate to the employer dashboard or log out of the application.
  */
-public class EmployeeHomeActivity extends AppCompatActivity{
+public class EmployeeHomeActivity extends AppCompatActivity {
 
     ArrayList<JobPosting> jobsList = new ArrayList<>();
     DatabaseReference databaseReference;
     ListView jobsListView;
     EditText searchBox;
     Button searchButton;
+
+    FloatingActionButton recJobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class EmployeeHomeActivity extends AppCompatActivity{
         jobsListView = findViewById(R.id.jobListView);
         searchBox = findViewById(R.id.searchBar);
         searchButton = findViewById(R.id.searchButton);
+        recJobs = findViewById(R.id.recommendedJobs);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("job_postings");
 
@@ -51,6 +53,8 @@ public class EmployeeHomeActivity extends AppCompatActivity{
             String searchQuery = searchBox.getText().toString();
             searchJobPostings(searchQuery);
         });
+
+        recJobs.setOnClickListener(view -> startActivity(new Intent(EmployeeHomeActivity.this, RecommendedJobsActivity.class)));
 
         // Load all job postings initially
         loadAllJobPostings();
@@ -68,22 +72,19 @@ public class EmployeeHomeActivity extends AppCompatActivity{
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     JobPosting jobPosting = snapshot.getValue(JobPosting.class);
                     if (jobPosting != null) {
-                        JobPosting job = new JobPosting(jobPosting.getJobTitle(),jobPosting.getJobDescription(),jobPosting.getExpectedDuration(),jobPosting.getPlace(),jobPosting.getUrgency(),jobPosting.getSalary(),jobPosting.getEmployerId());
+                        JobPosting job = new JobPosting(jobPosting.getJobTitle(), jobPosting.getJobDescription(), jobPosting.getExpectedDuration(), jobPosting.getPlace(), jobPosting.getUrgency(), jobPosting.getSalary(), jobPosting.getEmployerId());
                         jobsList.add(job);
                     }
                 }
                 ArrayAdapter<JobPosting> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, jobsList);
                 jobsListView.setAdapter(adapter);
 
-                jobsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
-                        JobPosting clickedJob = (JobPosting) jobsList.get(i);
-                        Toast.makeText(EmployeeHomeActivity.this, clickedJob.getJobTitle(), Toast.LENGTH_LONG).show();
-                        jobDescription.putExtra("JobClicked",clickedJob);
-                        startActivity(jobDescription);
-                    }
+                jobsListView.setOnItemClickListener((adapterView, view, i, l) -> {
+                    Intent jobDescription = new Intent(EmployeeHomeActivity.this, JobDescription.class);
+                    JobPosting clickedJob = (JobPosting) jobsList.get(i);
+                    Toast.makeText(EmployeeHomeActivity.this, clickedJob.getJobTitle(), Toast.LENGTH_LONG).show();
+                    jobDescription.putExtra("JobClicked", clickedJob);
+                    startActivity(jobDescription);
                 });
             }
 
@@ -96,6 +97,7 @@ public class EmployeeHomeActivity extends AppCompatActivity{
 
     /**
      * This method searches the job postings that were loaded from the database for any matches with the given search query.
+     *
      * @param searchQuery a string to search the for matches with the job postings.
      */
     private void searchJobPostings(String searchQuery) {
@@ -109,7 +111,6 @@ public class EmployeeHomeActivity extends AppCompatActivity{
         ArrayAdapter<JobPosting> adapter = new ArrayAdapter<>(EmployeeHomeActivity.this, android.R.layout.simple_list_item_1, filteredJobsList);
         jobsListView.setAdapter(adapter);
     }
-
 
 
 }

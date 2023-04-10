@@ -36,5 +36,11 @@
             android:layout_height="wrap_content"
             android:text="My Profile" />
 
+        <Button
+            android:id="@+id/applications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Applications" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
